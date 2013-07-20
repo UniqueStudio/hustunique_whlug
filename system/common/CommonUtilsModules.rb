@@ -24,7 +24,7 @@ module Ash
 		end
 
 		def self.display_module_outline(request, function = 'default', params = [])
-			puts "Request\t\t=> #{request}\n"
+			puts "Request\t\t=> #{request.request_method} #{request.url} #{request.ip}\n"
 			puts "File\t\t=> #{@module_view_file}"
 			puts "Function\t=> Ash::ModuleApp::CView#{@module_name}.new.#{function}\n"
 			puts "Params\t\t=> #{params}"
