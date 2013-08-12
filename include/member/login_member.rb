@@ -5,10 +5,10 @@ exit unless Object.const_defined? :ACCESS_ERROR
 require 'digest'
 
 if Object.const_defined? :ASH_DEBUG
-	require "#{MAIN_PATH}include/class/member/member.rb"
+	require "#{MAIN_PATH}include/member/member.rb"
 	require "#{MAIN_PATH}include/config/common_config.rb"
 else
-	require "#{Ash::Disposition::MAIN_DIR_INCLUDE_CLASS}member#{ASH_SEP}member.rb"
+	require "#{Ash::Disposition::MAIN_DIR_INCLUDE}member#{ASH_SEP}member.rb"
 end
 
 module Ash
