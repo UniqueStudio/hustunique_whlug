@@ -1,24 +1,23 @@
 #encoding: UTF-8
 
-exit unless defined? ACCESS_ERROR
+exit unless Object.const_defined? :ACCESS_ERROR
 
-require 'sinatra'
-require 'pp'
+require "#{MAIN_PATH}include#{ASH_SEP}config#{ASH_SEP}dir_config.rb"
 
-begin
+include Ash::Disposition
 
-  require "#{MAIN_PATH}include#{File::SEPARATOR}ConfigCommon.rb"
+require "#{MAIN_DIR_INCLUDE_CONFIG}file_config.rb"
+require "#{MAIN_DIR_INCLUDE_CONFIG}common_config.rb"
+require "#{MAIN_DIR_INCLUDE_CONFIG}db_config.rb"
 
-  require "#{Ash::Disposition::SYS_DIR_COMMON}CommonUtils.rb"
-	Ash::UtilsCommon.load_routing_conf_file
+require "#{SYS_DIR_COMMON}utils_common.rb"
+Ash::UtilsCommon.load_routing_conf_files
 
-  require "#{Ash::Disposition::SYS_DIR_COMMON}CommonUtilsModules.rb"
-  require "#{Ash::Disposition::SYS_DIR_COMMON}DbHelper.rb"
+require "#{SYS_DIR_COMMON}utils_module.rb"
+require "#{SYS_DIR_COMMON}utils_base.rb"
 
-rescue LoadError => error
-	puts error.to_s, error.backtrace.join('\n')
-	puts "Local variable #{local_variables}"
-end
+require "#{MAIN_DIR_INCLUDE_CLASS}member#{ASH_SEP}member.rb"
+require "#{MAIN_DIR_INCLUDE_CLASS}team#{ASH_SEP}team.rb"
 
 #Ash::Disposition.constants.each do |cont|
 	#pp "Ash::Disposition::#{cont} => " << Object.const_get("Ash::Disposition::#{cont}")

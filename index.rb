@@ -1,20 +1,30 @@
+#coding: UTF-8
+
 require 'pp'
 require 'sinatra'
 
-ACCESS_ERROR ||= true
+ACCESS_ERROR = true unless Object.const_defined? :ACCESS_ERROR
 
-FILE_EXT ||= '.rb'
+ASH_MODE_CLIENT = 7
+ASH_MODE_DEV = 77
 
-MAIN_PATH = File.expand_path(File.dirname(__FILE__)) << File::SEPARATOR
+# develpement mode
+ASH_MODE = ASH_MODE_DEV
+
+# File::SEPARATOR
+ASH_SEP = File::SEPARATOR
+
+MAIN_PATH = File.expand_path(File.dirname(__FILE__)) << ASH_SEP
 Dir.chdir MAIN_PATH
 
-SYS_PATH = "#{MAIN_PATH}system#{File::SEPARATOR}"
+SYS_PATH = MAIN_PATH + 'system' + ASH_SEP
 
 raise "#{SYS_PATH} not exist" unless File.directory? SYS_PATH
 
+
 begin
-	require "#{SYS_PATH}SysIndex#{FILE_EXT}"
+	require "#{SYS_PATH}SysIndex.rb"
 rescue  LoadError => error
-	pp error.message
+	puts error.message
 	puts error.backtrace.join("\n")
 end
