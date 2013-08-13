@@ -41,7 +41,7 @@ $(document).ready ->
 					success: (result)->
 						console.log eval('(' + result + ')')
 						result = eval('(' + result + ')')
-						window.location.href = '/wlg-home' if result.status is  true
+						window.location.href = '/wlg/settings' if result.status is  true
 						dispaly_error_info result.info
 
 						return

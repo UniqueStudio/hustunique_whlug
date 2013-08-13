@@ -19,5 +19,10 @@ module Ash
 		COMMON_PAGE_BIG_ERROR_INFO = 'Unable Error'
 		COMMON_PAGE_EQUAL = 50
 
+		# setter page
+		COMMON_SETTER_IS_BEING_USED = 2 ** 10
+		COMMON_SETTER_NOT_IS_BEING_USED = 2 ** 9
+		COMMON_SETTER_PAGE_MAX_NUM = 10
+
 	end
 end

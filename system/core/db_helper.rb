@@ -15,7 +15,7 @@ module Ash
 		class DBHelper
 
 			attr_reader :collection
-			@@collections = ["AuthMembers"]
+			@@collections = ["AuthMembers", "Homepage"]
 
 			def initialize(collection_name, db_name = MONGODB_DBNAME)
 				raise ArguemntError, "DBHelper initialize argument error" if self.in_collections? collection_name
@@ -34,20 +34,21 @@ module Ash
 				fields.empty? ? @collection.find_one(query) : @collection.find_one(query, :fields => fields)
 			end
 
-			def find_all(*need_key)
-				self.find({}, *need_key)
+			def find_all
+				self.find({})
 			end
 
-			def find(query = {}, *need_key)
-				final, result = [], @collection.find(query).to_a
-				unless need_key.empty?
-					result.each do |item|
-						temp_final = {}
-						need_key.each {|value| temp_final[value] = item[value] if item.has_key?(value)}
-						final << temp_final.merge({'_id' => item['_id']}).sort
-					end
-				end
-				final.empty? ? result : final
+			def find(query = {})
+				final = @collection.find(query).to_a
+				final.empty? ? nil : final
+			end
+
+			def find_by(query = {})
+				@collection.find(query)
+			end
+
+			def count
+				@collection.count
 			end
 
 			def insert(insert_value); @collection.insert(insert_value); end
