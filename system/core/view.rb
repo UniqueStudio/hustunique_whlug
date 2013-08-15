@@ -35,7 +35,7 @@ module Ash
 				if Object.const_defined? :ASH_DEBUG
 					file_path = "#{MAIN_PATH}plugin/setter/setter.rhtml"
 				else
-					file_path = "#{DISPOSITION::MAIN_DIR_PLUGIN}setter#{ASH_SEP}setter.rhtml"
+					file_path = "#{Disposition::MAIN_DIR_PLUGIN}setter#{ASH_SEP}setter.rhtml"
 				end
 				self.load_html(file_path)
 			end

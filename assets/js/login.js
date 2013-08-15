@@ -55,7 +55,7 @@ $(document).ready(function() {
             console.log(eval('(' + result + ')'));
             result = eval('(' + result + ')');
             if (result.status === true) {
-              window.location.href = '/wlg/settings';
+              window.location.href = '/wlg/setting';
             }
             dispaly_error_info(result.info);
           },

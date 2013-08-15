@@ -24,7 +24,7 @@ module Ash
 			def default(session, xhr)
 				begin
 					content = xhr ? self.load_static_file('homesetter.rhtml', 'homesetter') : self.load_setter_html
-					ERB.new(content).result(@api.ct_default(xhr).binding)
+					ERB.new(content).result(@api.ct_default(xhr, session).get_binding)
 				rescue
 					ASH_MODE == ASH_MODE_DEV and raise
 					UtilsBase.inte_bigerr_info

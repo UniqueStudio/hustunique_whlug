@@ -15,7 +15,7 @@ module Ash
 		class DBHelper
 
 			attr_reader :collection
-			@@collections = ["AuthMembers", "Homepage"]
+			@@collections = ["AuthMembers", "Homepage", "Events"]
 
 			def initialize(collection_name, db_name = MONGODB_DBNAME)
 				raise ArguemntError, "DBHelper initialize argument error" if self.in_collections? collection_name

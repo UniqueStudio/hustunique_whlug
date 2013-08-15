@@ -31,6 +31,11 @@ module Ash
 			Time.at(time.to_i).utc.strftime("%F %R").to_s
 		end
 
+		def self.time?(t = '')
+			raise ArgumentError, "time argument error" if t.empty?
+			/^(201[0-9])-((0[1-9])|(1[0-2]))-((0[1-9])|([1-2][0-9])|(3[0-1]))$/ =~ t ? true : false
+		end
+
 		def self.arr_password?(*pwds)
 			raise ArgumentError, "arr_password argument error" if pwds.empty?
 			pwds.each {|pwd| return false unless self.password?(pwd)}
