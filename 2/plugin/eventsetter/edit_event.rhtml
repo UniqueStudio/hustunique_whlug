@@ -14,7 +14,7 @@
 				<div class="control-group">
 					<label class="control-label" for="e_s_title">Title</label>
 					<div class="controls">
-						<input type="text" id="e_s_title" value="<%=event.title%>" placeholder="Event Title" />
+						<input type="text" id="e_s_title" value="<%=title%>" placeholder="Event Title" />
 					</div>
 				</div>
 				<div class="control-group">
@@ -22,7 +22,7 @@
 					<div class="controls">
 						<div class="">
 							<div id="e_s_datetimepicker" class="input-append date">
-								<input data-format="yyyy-MM-dd" id="e_s_time" type="text" value="<%=event.time%>" />
+								<input data-format="yyyy-MM-dd" id="e_s_time" type="text" value="<%=time%>" />
 								<span class="add-on">
 									<i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
 								</span>
@@ -33,20 +33,20 @@
 				<div class="control-group">
 					<label class="control-label" for="e_s_location">Location</label>
 					<div class="controls">
-						<input type="text" id="e_s_location" value="<%=event.location%>" placeholder="Event Location" />
+						<input type="text" id="e_s_location" value="<%=location%>" placeholder="Event Location" />
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="e_s_content">Content</label>
 					<div class="controls">
-						<textarea id="e_s_content" placeholder="Content" style="width: 600px; height: 500px;"><%=event.content%></textarea>
+						<textarea id="e_s_content" placeholder="Content" style="width: 600px; height: 500px;"><%=content%></textarea>
 					</div>
 				</div>
 				<div class="control-group">
 					<div class="controls">
 						<button class="btn btn-success a_e_update">Save</button>
 						<button class="btn btn-link a_e_cancel">Cancel</button>
-						<input type="hidden" id="hidden_nid" name="nid" value="<%=event.nid.to_i%>"/>
+						<input type="hidden" id="hidden_nid" name="nid" value="<%=nid.to_i%>"/>
 					</div>
 				</div>
 

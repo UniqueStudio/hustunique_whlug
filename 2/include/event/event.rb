@@ -89,7 +89,8 @@ module Ash
 			end
 
 			def find_last_nid
-				@helper.find_by({}).sort({_id: -1}).limit(1).to_a.first['nid']
+				res = @helper.find_by({}).sort({_id: -1}).limit(1).to_a
+				res.empty? ? 0 : res.first['nid']
 			end
 
 			def format_page(page)

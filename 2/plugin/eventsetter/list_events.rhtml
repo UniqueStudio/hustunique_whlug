@@ -7,33 +7,33 @@
 		<div><a href="/wlg/setting/event/add" class="btn btn-success">Click Add New Event</a></div>
 		<fieldset>
 			<legend>Event List</legend>
-			<%if !page.nil?%>
+			<%if !content.nil?%>
 				<div>
 					<ul class="nav nav-pills nav-stacked">
-						<%page.content.map do |cont|%>
+						<%content.map do |cont|%>
 							<li><a href="/wlg/setting/event/list/<%=cont.nid.to_i%>"><%= cont.time%><%= cont.title%></a></li>
 						<%end%>
 					</ul>
 				</div>
-				<%if page.sum_pages_length > 1%>
+				<%if sum_pages_length > 1%>
 					<div class="pagination pagination-center">
 						<ul>
-							<%if page.now_page == 1%>
+							<%if now_page == 1%>
 								<li class="disabled"><a href="#">&#x2190;</a></li>
 							<%else%>
 								<li><a href="/wlg/setting/event/page/1">&#x2190;</a></li>
 							<%end%>
-							<%page.sum_pages_length.times do |t|%>
-								<%if t + 1 == page.now_page%>
-									<li class="active"><a href="#"><%= t + 1%></a></li>
+							<%sum_pages_length.times do |t|%>
+								<%if t + 1 == now_page%>
+									<li class="active"><a href="#"><%= now_page%></a></li>
 								<%else%>
-									<li><a href="/wlg/setting/event/page/<%=t + 1%>"><%= t + 1%></a></li>
+									<li><a href="/wlg/setting/event/page/<%=now_page%>"><%=now_page%></a></li>
 								<%end%>
 							<%end%>
-							<%if page.now_page == page.sum_pages_length%>
+							<%if now_page == sum_pages_length%>
 								<li class="disabled"><a href="#">&#x2192;</a></li>
 							<%else%>
-								<li><a href="/wlg/setting/event/page/<%=page.sum_pages_length%>">&#x2192;</a></li>
+								<li><a href="/wlg/setting/event/page/<%=sum_pages_length%>">&#x2192;</a></li>
 							<%end%>
 						</ul>
 					</div>
