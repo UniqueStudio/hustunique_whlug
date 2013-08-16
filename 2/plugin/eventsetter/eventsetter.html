@@ -1,0 +1,55 @@
+<script language="Javascript" type="text/javascript" src="/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+<script language="Javascript" type="text/javascript" src="/bootstrap/js/wysihtml5-0.3.0.min.js"></script>
+<script language="Javascript" type="text/javascript" src="/bootstrap/js/bootstrap-wysihtml5.js"></script>
+<script language="Javascript" type="text/javascript" src="/bootstrap/js/bootstrap-wysihtml5.zh-CN.js"></script>
+<div class="container" style="margin-top: 20px; margin-left: 100px;">
+	<fieldset>
+		<legend>Event</legend>
+		<div class="e_s_form-body">
+			<div class="form-horizontal">
+				<div class="control-group">
+					<label class="control-label" for="e_s_title">Title</label>
+					<div class="controls">
+						<input type="text" id="e_s_title" placeholder="Event Title" />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="e_s_time">Time</label>
+					<div class="controls">
+						<div class="">
+							<div id="e_s_datetimepicker" class="input-append date">
+								<input data-format="yyyy-MM-dd" id="e_s_time" type="text" />
+								<span class="add-on">
+									<i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="e_s_location">Location</label>
+					<div class="controls">
+						<input type="text" id="e_s_location" placeholder="Event Location" />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="e_s_content">Content</label>
+					<div class="controls">
+						<textarea id="e_s_content" placeholder="Content" style="width: 600px; height: 500px;"></textarea>
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<button type="button" id="s_submit" class="btn">Submit</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</fieldset>
+	<div class="alert" id="l_alert" style="display: none;margin-top: 4px;margin-left: 18px; box-shadow: 0 1px 1px;">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<p id="l_err">error</p>
+	</div>
+</div>
+<script language="Javascript" type="text/javascript" src="/js/event_setter.js"></script>
