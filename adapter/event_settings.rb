@@ -29,6 +29,12 @@ get '/wlg/setting/event/page' do
 	[status, headers, body]
 
 end
+get '/wlg/setting/event/page/' do
+
+	status, headers, body = call env.merge("PATH_INFO" => '/wlg/setting/event/page/1')
+	[status, headers, body]
+
+end
 
 get '/wlg/setting/event/page/:num' do
 	redirect to('/wlg-login') if session[:ash_uid] == 0
@@ -47,7 +53,7 @@ end
 post '/wlg/setting/event/add' do
 	redirect to('/wlg-login') if session[:ash_uid] == 0
   Ash::UtilsModules.load_module_files 'eventsetter'
-	Ash::UtilsModules.display_module_outline(request.dup, 'view_add_event', params.dup)
+	Ash::UtilsModules.display_module_outline(request.dup, 'view_verify_add_event', params.dup)
 	Ash::ModuleApp::EventsetterView.new.view_verify_add_event(params['e_s_title'], params['e_s_time'], params['e_s_loc'], params['e_s_cont'])
 end
 

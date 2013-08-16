@@ -20,11 +20,17 @@ module Ash
 
 			public
 			def ct_list_pages(page)
-				ModuleTool::EventTool.new.find_briefs(page)
-				#Struct.new(:content, :sum_info_length, :sum_pages_length, :each_page_langth).new(content, sum_info_length, sum_pages_length, Disposition::COMMON_SETTER_PAGE_MAX_NUM)
+				et = ModuleTool::EventTool.new
+				sum_info_length = et.event_helper.active_count
+				sum_pages_length = (sum_info_length / Disposition::COMMON_EVENT_PAGE_MAX_NUM.to_f).ceil
+
+				page =1 if page <= 0 or sum_pages_length < page
+				content = et.find_briefs(page)
+				return if content.nil?
+				Struct.new(:content, :sum_info_length, :sum_pages_length, :each_page_langth, :now_page).new(content, sum_info_length, sum_pages_length, Disposition::COMMON_SETTER_PAGE_MAX_NUM, page)
 			end
 
-			def ct_add_event(title, time, loc, cont)
+			def ct_verify_add_event(title, time, loc, cont)
 				begin
 					title, time, loc, cont = title.strip, time.strip, loc.strip, cont.strip
 

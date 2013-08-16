@@ -16,6 +16,12 @@ post '/wlg-login' do
 	Ash::ModuleApp::LoginView.new.view_verify_login(params['l_u_email'], params['l_u_pwd'], session)
 end
 
+get '/wlg/logout' do
+	session.clear
+	session[:ash_uid] = 0
+	redirect to('/wlg-login')
+end
+
 #get '/login/randomImage' do
 	#session.clear
 	#session[:ash_uid] = 0

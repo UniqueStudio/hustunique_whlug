@@ -16,7 +16,7 @@ module Ash
 
 		class EventTool
 
-			attr_reader :event, :event_helper
+			attr_reader :event, :event_helper, :db_helper
 			def initialize
 				@event_helper = ExtraDB::EventHelper.new
 				@event, @db_helper = @event_helper.event, @event_helper.helper
@@ -25,7 +25,10 @@ module Ash
 			public
 			def insert(title, time, location, content)
 				last_nid = @event_helper.find_last_nid
-				@db_helper.insert({title: title, time: time, timestamp: Time.now.to_i.to_s, content: content, location: location, nid: last_nid + 1, isActive: Disposition::COMMON_EVENT_IS_ACTIVE.to_s})
+				now_t = Time.now.to_i.to_s
+				t = UtilsBase.split_time(time)
+				time_t = Time.new(t.year, t.month, t.day).to_i.to_s
+				@db_helper.insert({title: title, time: time, create_time: now_t, modify_time: now_t, timestamp: time_t, content: content, location: location, nid: last_nid + 1, isActive: Disposition::COMMON_EVENT_IS_ACTIVE.to_s})
 			end
 
 			def find_briefs(num)
@@ -44,7 +47,9 @@ module Ash
 			end
 
 			def update(nid, title, time, location, content)
-				@db_helper.update({nid: nid}, {"$set" => {title: title, time: time, timestamp: Time.now.to_i.to_s, content: content, location: location}})['updatedExisting']
+				t = UtilsBase.split_time(time)
+				time_t = Time.new(t.year, t.month, t.day).to_i.to_s
+				@db_helper.update({nid: nid}, {"$set" => {title: title, time: time, timestamp: time_t, modify_time: Time.now.to_i.to_s, content: content, location: location}})['updatedExisting']
 			end
 
 

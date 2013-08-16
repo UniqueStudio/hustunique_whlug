@@ -31,6 +31,13 @@ module Ash
 			Time.at(time.to_i).utc.strftime("%F %R").to_s
 		end
 
+		def self.split_time(time = '')
+			raise ArgumentError, "format_time argument error" if time.empty?
+			result = time.split('-')
+			raise ArgumentError, "format_time argument error" unless result.length == 3
+			Struct.new(:year, :month, :day).new(result[0].to_i, result[1].to_i, result[2].to_i)
+		end
+
 		def self.time?(t = '')
 			raise ArgumentError, "time argument error" if t.empty?
 			/^(201[0-9])-((0[1-9])|(1[0-2]))-((0[1-9])|([1-2][0-9])|(3[0-1]))$/ =~ t ? true : false

@@ -98,6 +98,16 @@ module Ash
 				(page - 1) * Disposition::COMMON_EVENT_PAGE_MAX_NUM
 			end
 
+			def active_count
+				@helper.find_by({isActive: Disposition::COMMON_EVENT_IS_ACTIVE.to_s}).to_a.length
+			end
+
+			protected
+			def _find_all(query = {}, nlimit = 10, nskip = 0)
+				result = @helper.find_by(query)
+				return nil if result.nil?
+				EventResult.new(result.sort(timestamp: -1).limit(nlimit).skip(nskip).to_a)
+			end
 		end
 
 		class EventException < StandardError; end
