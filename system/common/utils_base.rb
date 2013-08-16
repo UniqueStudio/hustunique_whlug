@@ -77,5 +77,8 @@ module Ash
 			str =~ /\p{Han}/u ? true: false
 		end
 
+		def self.dev_mode?
+			ASH_MODE == ASH_MODE_DEV
+		end
 	end
 end

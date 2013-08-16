@@ -3,11 +3,7 @@
 exit unless Object.const_defined? :ACCESS_ERROR
 
 if Object.const_defined? :ASH_DEBUG
-	require "#{MAIN_PATH}system/core/control.rb"
 	require "#{MAIN_PATH}include/member/login_member.rb"
-	require "#{MAIN_PATH}include/config/dir_config.rb"
-	require "#{MAIN_PATH}system/common/utils_common.rb"
-	require "#{MAIN_PATH}system/common/utils_base.rb"
 else
 	require "#{Ash::Disposition::SYS_DIR_CORE}control.rb"
 	require "#{Ash::Disposition::MAIN_DIR_INCLUDE}member#{ASH_SEP}login_member.rb"
