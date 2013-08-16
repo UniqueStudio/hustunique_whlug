@@ -12,12 +12,9 @@ get '/wlg/setting/' do
 end
 
 get '/wlg/setting/event' do
-
 	status, headers, body = call env.merge("PATH_INFO" => '/wlg/setting/event/page/1')
 	[status, headers, body]
-
 end
-
 get '/wlg/setting/event/page' do
 	status, headers, body = call env.merge("PATH_INFO" => '/wlg/setting/event/page/1')
 	[status, headers, body]
@@ -26,7 +23,7 @@ get '/wlg/setting/event/page/:num' do
 	redirect to('/wlg-login') if session[:ash_uid] == 0
   Ash::UtilsModules.load_files 'eventsetter'
 	Ash::UtilsModules.display_outline(request.dup, 'default', params.dup)
-	Ash::ModuleApp::EventsetterView.new.default(request.xhr?, params['num'])
+	Ash::ModuleApp::EventsetterView.new.default(params['num'])
 end
 
 get '/wlg/setting/event/add' do

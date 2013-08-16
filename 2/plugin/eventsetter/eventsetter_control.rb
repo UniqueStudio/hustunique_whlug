@@ -3,10 +3,6 @@
 exit unless Object.const_defined? :ACCESS_ERROR
 
 if Object.const_defined? :ASH_DEBUG
-	require "#{MAIN_PATH}system/core/control.rb"
-	require "#{MAIN_PATH}include/config/dir_config.rb"
-	require "#{MAIN_PATH}system/common/utils_common.rb"
-	require "#{MAIN_PATH}system/common/utils_base.rb"
 	require "#{MAIN_PATH}include/event/event_tool.rb"
 else
 	require "#{Ash::Disposition::SYS_DIR_CORE}control.rb"
@@ -16,6 +12,14 @@ end
 module Ash
 	module ModuleApp
 
+		EventListPages = Struct.new(:content, :sum_info_length, :sum_pages_length, :each_page_langth, :now_page) do
+			def get_binding; binding(); end
+		end
+
+		EventList = Struct.new(:title, :time, :location, :content, :nid) do
+			def get_binding; binding(); end
+		end
+
 		class EventsetterControl < Control
 
 			public
@@ -23,11 +27,8 @@ module Ash
 				et = ModuleTool::EventTool.new
 				sum_info_length = et.event_helper.active_count
 				sum_pages_length = (sum_info_length / Disposition::COMMON_EVENT_PAGE_MAX_NUM.to_f).ceil
-
 				page =1 if page <= 0 or sum_pages_length < page
-				content = et.find_briefs(page)
-				return if content.nil?
-				Struct.new(:content, :sum_info_length, :sum_pages_length, :each_page_langth, :now_page).new(content, sum_info_length, sum_pages_length, Disposition::COMMON_SETTER_PAGE_MAX_NUM, page)
+				EventListPages.new(et.find_briefs(page), sum_info_length, sum_pages_length, Disposition::COMMON_SETTER_PAGE_MAX_NUM, page)
 			end
 
 			def ct_verify_add_event(title, time, loc, cont)
@@ -39,13 +40,15 @@ module Ash
 					ModuleTool::EventTool.new.insert(title, time, loc, cont)
 					UtilsBase.inte_succ_info
 				rescue
-					ASH_MODE == ASH_MODE_DEV and raise
+					UtilsBase.dev_mode? and raise
 					UtilsBase.inte_bigerr_info
 				end
 			end
 
 			def ct_list_events(num)
-				ModuleTool::EventTool.new.event_helper.find_by_nid(num)
+				res = ModuleTool::EventTool.new.event_helper.find_by_nid(num)
+				return if res.nil?
+				EventList.new(res.event.title, res.event.time, res.event.location, res.event.content, res.event.nid)
 			end
 
 			def ct_verify_edit_event(num, title, time, loc, cont)
@@ -57,11 +60,10 @@ module Ash
 
 					_verify = self._ct_verify_event(title, time, loc, cont)
 					return _verify unless _verify.nil?
-
 					et.update(num, title, time, loc, cont)
 					UtilsBase.inte_succ_info
 				rescue
-					ASH_MODE == ASH_MODE_DEV and raise
+					UtilsBase.dev_mode? and raise
 					UtilsBase.inte_bigerr_info
 				end
 			end
