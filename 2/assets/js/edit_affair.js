@@ -18,7 +18,7 @@ $(document).ready(function() {
     return elm_err.html('');
   };
   $("button.a_e_cancel").click(function() {
-    return window.location.href = "/wlg/setting/event/page";
+    return window.location.href = "/wlg/setting/affair/page";
   });
   $("button.a_e_update").click(function() {
     var checker, e_content, e_location, e_nid, e_time, e_title;
@@ -43,7 +43,7 @@ $(document).ready(function() {
     }
     $.ajax({
       type: 'POST',
-      url: '/wlg/setting/event/edit/' + e_nid,
+      url: '/wlg/setting/affair/edit/' + e_nid,
       data: {
         e_s_title: e_title,
         e_s_time: e_time,
@@ -55,7 +55,7 @@ $(document).ready(function() {
         result = eval('(' + result + ')');
         dispaly_error_info(result.info);
         if (result.status === true) {
-          window.location.href = '/wlg/setting/event/page';
+          window.location.href = '/wlg/setting/affair/page';
         }
       }
     });

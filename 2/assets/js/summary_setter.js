@@ -18,16 +18,15 @@ $(document).ready(function() {
     return elm_err.html('');
   };
   $("button.a_e_cancel").click(function() {
-    return window.location.href = "/wlg/setting/event/page";
+    return window.location.href = "/wlg/setting/summary/page";
   });
-  $("button.a_e_update").click(function() {
-    var checker, e_content, e_location, e_nid, e_time, e_title;
+  $("button.a_e_save").click(function() {
+    var checker, e_content, e_location, e_time, e_title;
     hidden_error_info();
     e_title = $.trim($("input#e_s_title").val());
     e_time = $.trim($("input#e_s_time").val());
     e_location = $.trim($("input#e_s_location").val());
     e_content = $.trim($("textarea#e_s_content").val());
-    e_nid = $.trim($("input#hidden_nid").val());
     checker = new Checker();
     if (checker.isTitle(e_title).isError()) {
       return dispaly_error_info(checker.error);
@@ -43,7 +42,7 @@ $(document).ready(function() {
     }
     $.ajax({
       type: 'POST',
-      url: '/wlg/setting/event/edit/' + e_nid,
+      url: '/wlg/setting/summary/add',
       data: {
         e_s_title: e_title,
         e_s_time: e_time,
@@ -55,7 +54,7 @@ $(document).ready(function() {
         result = eval('(' + result + ')');
         dispaly_error_info(result.info);
         if (result.status === true) {
-          window.location.href = '/wlg/setting/event/page';
+          window.location.href = '/wlg/setting/summary/page';
         }
       }
     });

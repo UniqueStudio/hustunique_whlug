@@ -18,7 +18,7 @@ $(document).ready ->
 		elm_err.html('')
 
 	$("button.a_e_cancel").click ->
-		window.location.href = "/wlg/setting/event/page"
+		window.location.href = "/wlg/setting/affair/page"
 
 	$("button.a_e_update").click ->
 		hidden_error_info()
@@ -36,7 +36,7 @@ $(document).ready ->
 
 		$.ajax({
 			type: 'POST'
-			url: '/wlg/setting/event/edit/' + e_nid
+			url: '/wlg/setting/affair/edit/' + e_nid
 			data:{
 				e_s_title: e_title
 				e_s_time: e_time
@@ -47,7 +47,7 @@ $(document).ready ->
 				console.log result
 				result = eval('(' + result + ')')
 				dispaly_error_info(result.info)
-				window.location.href = '/wlg/setting/event/page' if result.status is true
+				window.location.href = '/wlg/setting/affair/page' if result.status is true
 				return
 		})
 

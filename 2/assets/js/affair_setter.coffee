@@ -18,16 +18,15 @@ $(document).ready ->
 		elm_err.html('')
 
 	$("button.a_e_cancel").click ->
-		window.location.href = "/wlg/setting/event/page"
+		window.location.href = "/wlg/setting/affair/page"
 
-	$("button.a_e_update").click ->
+	$("button.a_e_save").click ->
 		hidden_error_info()
 
 		e_title = $.trim $("input#e_s_title").val()
 		e_time = $.trim $("input#e_s_time").val()
 		e_location = $.trim $("input#e_s_location").val()
 		e_content = $.trim $("textarea#e_s_content").val()
-		e_nid = $.trim $("input#hidden_nid").val()
 		checker = new Checker()
 		return dispaly_error_info(checker.error) if checker.isTitle(e_title).isError()
 		return dispaly_error_info(checker.error) if checker.isTime(e_time).isError()
@@ -36,7 +35,7 @@ $(document).ready ->
 
 		$.ajax({
 			type: 'POST'
-			url: '/wlg/setting/event/edit/' + e_nid
+			url: '/wlg/setting/affair/add'
 			data:{
 				e_s_title: e_title
 				e_s_time: e_time
@@ -47,7 +46,7 @@ $(document).ready ->
 				console.log result
 				result = eval('(' + result + ')')
 				dispaly_error_info(result.info)
-				window.location.href = '/wlg/setting/event/page' if result.status is true
+				window.location.href = '/wlg/setting/affair/page' if result.status is true
 				return
 		})
 

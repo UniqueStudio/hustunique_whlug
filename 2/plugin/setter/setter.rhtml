@@ -13,7 +13,7 @@
 		<link href="/css/edit_setter.css" rel="stylesheet" />
 		<script language="Javascript" type="text/javascript" src="/js/jQuery2.0.2.min.js"></script>
 		<script language="Javascript" type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
-		<script language="Javascript" type="text/javascript" src="/js/md5.js"></script>
+		<script language="Javascript" type="text/javascript" src="/js/base_setter.js"></script>
 	</head>
 
 	<body>
@@ -46,8 +46,9 @@
 					<!--<div id="edit_homepage" class="cont-left-onclick"><i class="icon-edit"></i><span>Homepage</span></div>-->
 					<!--</div>-->
 					<div class="cont-left-btn">
-						<div id="edit_event" class="cont-left-click <%if active == Disposition::COMMON_PAGE_EDIT_EVENT%>cont-left-onclick<%end%>"><i class="icon-edit"></i><span>Activity</span></div>
-						<div id="edit_list_event" class="cont-left-click <%if active == Disposition::COMMON_PAGE_LIST_EVENT%>cont-left-onclick<%end%>"><i class="icon-edit"></i><span>List Events</span></div>
+						<div id="edit_event" class="cont-left-click <%if active == Disposition::COMMON_PAGE_EDIT_EVENT%>cont-left-onclick<%end%>"><a href="/wlg/setting/event"><i class="icon-edit"></i><span>Events</span></a></div>
+						<div id="edit_affair" class="cont-left-click <%if active == Disposition::COMMON_PAGE_EDIT_AFFAIR%>cont-left-onclick<%end%>"><a href="/wlg/setting/affair"><i class="icon-edit"></i><span>Affairs</span></a></div>
+						<div id="edit_summary" class="cont-left-click <%if active == Disposition::COMMON_PAGE_EDIT_SUMMARY%>cont-left-onclick<%end%>"><a href="/wlg/setting/summary"><i class="icon-edit"></i><span>Summaries</span></a></div>
 					</div>
 				</div>
 			</div>
