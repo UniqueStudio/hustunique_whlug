@@ -51,6 +51,17 @@ module Ash
 				@db_helper.update({nid: nid}, {"$set" => {title: title, time: time, timestamp: time_t, modify_time: Time.now.to_i.to_s, content: content, location: location}})['updatedExisting']
 			end
 
+			def find_du_briefs(num)
+				[self.find_simple_briefs(num - 1), self.find_simple_briefs(num + 1)]
+			end
+
+			def find_simple_briefs(num)
+				return if num <= 0
+				r = @db_helper.find_one({nid: num.to_i})
+				return if r.nil?
+				SummaryBriefs.new(r['time'], r['title'][0, 10], r['nid'])
+			end
+
 
 		end
 	end
