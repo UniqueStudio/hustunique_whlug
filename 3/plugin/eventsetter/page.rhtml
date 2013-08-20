@@ -1,0 +1,26 @@
+<ol class="breadcrumb">
+	<li>
+	<a href="/wlg/setting/activity">活动公告</a> <span class="divider">/</span>
+	</li>
+	<li class="active">
+	活动列表
+	</li>
+</ol>
+<div class="container span11 list">
+	<%if !content.empty?%>
+		<%content.map do |list|%>
+			<a href="/wlg/setting/activity/list/<%=list.nid%>"><%=list.title%><span><%=list.time%></span></a>
+			<hr />
+		<%end%>
+	<%end%>
+</div>
+<%if !left_page.nil? and !right_page.nil?%>
+<ul class="pager">
+	<%if !left_page.nil?%>
+		<li><a href="/wlg/setting/activity/page/<%=left_page%>">>前一页</a></li>
+	<%end%>
+	<%if !right_page.nil?%>
+		<li><a href="/wlg/setting/activity/page/<%=right_page%>">>后一页</a></li>
+	<%end%>
+</ul>
+<%end%>

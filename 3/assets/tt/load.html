@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>test</title>
+    <script type="text/javascript" src="js/load.js"></script>
+    <style type="text/css">
+      body {
+        background: rgb(22,27,31);
+      }
+      .line {
+      }
+      .checking {
+        width: 80%;
+        float: left;
+        margin-left: 10px;
+        text-align: left;
+        font: 16px, Monaco;
+        color: rgb(199,199,199);
+      }
+      .checked {
+        width: 15%;
+        float: right;
+        margin-right: 10px;
+        text-align: right;
+        font: 16px, Monaco;
+        color: rgb(199,199,199);
+      }
+      .ok {
+        color: rgb(31, 95, 0);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="display">
+    </div>
+  </body>
+  <script type="text/javascript" charset="utf-8">
+    function rand(start, end) {
+      return Math.floor(Math.random() * (end - start) + start);
+    }
+    function initializer(){
+      load = new Load();
+      window.setInterval("loading()", rand(1, 10) * 100);
+    }
+    function loading(){
+      if (load.count < load.rap.length) {
+        load.show();
+      }
+      else {
+        location.href = "";
+      }
+    }
+    initializer();
+  </script>
+</html>
