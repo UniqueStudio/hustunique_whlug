@@ -12,31 +12,34 @@ end
 module Ash
 	module ModuleApp
 
-		AffairListPages = Struct.new(:content, :sum_info_length, :sum_pages_length, :each_page_langth, :now_page) do
+		AffairListPages = Struct.new(:content, :now_page, :left_page, :right_page) do
 			def get_binding; binding(); end
 		end
 
-		AffairList = Struct.new(:title, :time, :location, :content, :nid, :left, :right) do
-			def get_binding; binding(); end
-		end
+		#AffairList = Struct.new(:title, :fmt_time, :content, :nid, :writer, ) do
+			#def get_binding; binding(); end
+		#end
 
 		class AffairControl < Control
 
 			public
-			def ct_list_pages(page)
+			def ct_list_page(page = 1)
 				et = ModuleTool::AffairTool.new
-				sum_info_length = et.affair_helper.active_count
-				sum_pages_length = (sum_info_length / Disposition::COMMON_EVENT_PAGE_MAX_NUM.to_f).ceil
-				page =1 if page <= 0 or sum_pages_length < page
-				AffairListPages.new(et.find_briefs(page), sum_info_length, sum_pages_length, Disposition::COMMON_SETTER_PAGE_MAX_NUM, page)
+				sp_len = (et.affair_helper.active_count / Disposition::COMMON_AFFAIR_PAGE_MAX_NUM.to_f).ceil
+				page = 1 if page <= 0 or sp_len < page
+				l_page, r_page = page - 1, page + 1
+				l_page = nil if l_page == 0
+				r_page = nil if r_page > sp_len
+				AffairListPages.new(et.find_briefs_by_page(page), page, l_page, r_page)
 			end
 
-			def ct_list_affairs(num)
-				mt = ModuleTool::AffairTool.new
-				res = mt.affair_helper.find_by_nid(num)
-				os = mt.find_du_briefs(num)
+			def ct_list_details(num = 1)
+				at = ModuleTool::AffairTool.new.init_affair(nid: num)
+				res = at.affair_helper.find_by_nid(num)
 				return if res.nil?
-				AffairList.new(res.affair.title, res.affair.time, res.affair.location, res.affair.content, res.affair.nid, os.first, os.last)
+				at.affair_helper.hits_increase
+				res.hits = res.hits + 1
+				res
 			end
 
 		end

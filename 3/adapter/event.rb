@@ -2,26 +2,34 @@
 
 exit unless Object.const_defined? :ACCESS_ERROR
 
-get '/activity' do
-	status, headers, body = call env.merge("PATH_INFO" => '/activity/new')
+get '/event' do
+	status, headers, body = call env.merge("PATH_INFO" => '/event/page/1')
 	[status, headers, body]
 end
-get '/activity/list' do
-	status, headers, body = call env.merge("PATH_INFO" => '/activity/new')
+get '/event/' do
+	status, headers, body = call env.merge("PATH_INFO" => '/event/page/1')
 	[status, headers, body]
 end
-get '/activity/list/' do
-	status, headers, body = call env.merge("PATH_INFO" => '/activity/new')
+get '/event/page' do
+	status, headers, body = call env.merge("PATH_INFO" => '/event/page/1')
 	[status, headers, body]
 end
-get '/activity/new' do
+get '/event/page/' do
+	status, headers, body = call env.merge("PATH_INFO" => '/event/page/1')
+	[status, headers, body]
+end
+get '/event/page/:num' do
   Ash::UtilsModules.load_files 'event'
-	Ash::UtilsModules.display_outline(request.dup, 'view_new_event')
-	Ash::ModuleApp::EventView.new.view_new_event
+	Ash::UtilsModules.display_outline(request.dup, 'view_list_page', params.dup)
+	Ash::ModuleApp::EventView.new.view_list_page(params['num'])
 end
 
-get '/activity/list/:num' do
+#get '/wlg/setting/event/list' do
+	#status, headers, body = call env.merge("PATH_INFO" => '/wlg/setting/event/list/1')
+	#[status, headers, body]
+#end
+get '/event/list/:num' do
   Ash::UtilsModules.load_files 'event'
-	Ash::UtilsModules.display_outline(request.dup, 'view_list_event', params.dup)
-	Ash::ModuleApp::EventView.new.view_list_event(params['num'])
+	Ash::UtilsModules.display_outline(request.dup, 'view_list_details', params.dup)
+	Ash::ModuleApp::EventView.new.view_list_details(params['num'])
 end

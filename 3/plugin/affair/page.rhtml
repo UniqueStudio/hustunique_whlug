@@ -1,0 +1,28 @@
+<ol class="breadcrumb">
+	<li>
+	<a href="/affair">事务公告</a> <span class="divider">/</span>
+	</li>
+	<li class="active">
+	列表
+	</li>
+</ol>
+<div class="container span11 list">
+	<%if !content.nil? and !content.empty?%>
+		<%content.map do |list|%>
+			<a href="/affair/list/<%=list.nid%>"><%=list.title%><span><%=list.time%></span></a>
+			<hr />
+		<%end%>
+	<%else%>
+		<div>没有事务</div>
+	<%end%>
+</div>
+<%if !left_page.nil? or !right_page.nil?%>
+<ul class="pager">
+	<%if !left_page.nil?%>
+		<li><a href="/affair/page/<%=left_page%>">前一页</a></li>
+	<%end%>
+	<%if !right_page.nil?%>
+		<li><a href="/affair/page/<%=right_page%>">后一页</a></li>
+	<%end%>
+</ul>
+<%end%>

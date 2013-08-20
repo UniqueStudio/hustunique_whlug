@@ -1,0 +1,28 @@
+<ol class="breadcrumb">
+	<li>
+	<a href="/event">活动公告</a> <span class="divider">/</span>
+	</li>
+	<li class="active">
+	列表
+	</li>
+</ol>
+<div class="container span11 list">
+	<%if !content.nil? and !content.empty?%>
+		<%content.map do |list|%>
+			<a href="/event/list/<%=list.nid%>"><%=list.title%><span><%=list.time%></span></a>
+			<hr />
+		<%end%>
+	<%else%>
+		<div>没有活动</div>
+	<%end%>
+</div>
+<%if !left_page.nil? or !right_page.nil?%>
+<ul class="pager">
+	<%if !left_page.nil?%>
+		<li><a href="/event/page/<%=left_page%>">前一页</a></li>
+	<%end%>
+	<%if !right_page.nil?%>
+		<li><a href="/event/page/<%=right_page%>">后一页</a></li>
+	<%end%>
+</ul>
+<%end%>

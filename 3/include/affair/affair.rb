@@ -85,7 +85,7 @@ module Ash
 			def hits_increase(nid = nil)
 				@affair.nid = nid unless nid.nil?
 				raise AffairException, "hits_increase argument error" unless @affair.nid.instance_of? Fixnum
-				@helper.update({nid: @affair.nid}, {"$inc" => {hits: 1}})['updatedExisting']
+				@helper.update({nid: @affair.nid, isActive: Disposition::COMMON_AFFAIR_IS_ACTIVE.to_s}, {"$inc" => {hits: 1}})['updatedExisting']
 			end
 
 			def not_active(nid = nil)

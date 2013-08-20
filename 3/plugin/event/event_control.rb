@@ -12,31 +12,34 @@ end
 module Ash
 	module ModuleApp
 
-		EventListPages = Struct.new(:content, :sum_info_length, :sum_pages_length, :each_page_langth, :now_page) do
+		EventListPages = Struct.new(:content, :now_page, :left_page, :right_page) do
 			def get_binding; binding(); end
 		end
 
-		EventList = Struct.new(:title, :time, :location, :content, :nid, :left, :right) do
-			def get_binding; binding(); end
-		end
+		#EventList = Struct.new(:title, :fmt_time, :content, :nid, :writer, ) do
+			#def get_binding; binding(); end
+		#end
 
 		class EventControl < Control
 
 			public
-			def ct_list_pages(page)
+			def ct_list_page(page = 1)
 				et = ModuleTool::EventTool.new
-				sum_info_length = et.event_helper.active_count
-				sum_pages_length = (sum_info_length / Disposition::COMMON_EVENT_PAGE_MAX_NUM.to_f).ceil
-				page =1 if page <= 0 or sum_pages_length < page
-				EventListPages.new(et.find_briefs(page), sum_info_length, sum_pages_length, Disposition::COMMON_SETTER_PAGE_MAX_NUM, page)
+				sp_len = (et.event_helper.active_count / Disposition::COMMON_EVENT_PAGE_MAX_NUM.to_f).ceil
+				page = 1 if page <= 0 or sp_len < page
+				l_page, r_page = page - 1, page + 1
+				l_page = nil if l_page == 0
+				r_page = nil if r_page > sp_len
+				EventListPages.new(et.find_briefs_by_page(page), page, l_page, r_page)
 			end
 
-			def ct_list_events(num)
-				mt = ModuleTool::EventTool.new
-				res = mt.event_helper.find_by_nid(num)
-				os = mt.find_du_briefs(num)
+			def ct_list_details(num = 1)
+				at = ModuleTool::EventTool.new.init_event(nid: num)
+				res = at.event_helper.find_by_nid(num)
 				return if res.nil?
-				EventList.new(res.event.title, res.event.time, res.event.location, res.event.content, res.event.nid, os.first, os.last)
+				at.event_helper.hits_increase
+				res.hits = res.hits + 1
+				res
 			end
 
 		end
