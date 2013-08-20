@@ -22,46 +22,45 @@ module Ash
 			end
 
 			public
-			def insert(title, time, location, content)
+			def insert(title, writer, content)
 				last_nid = @summary_helper.find_last_nid
-				now_t = Time.now.to_i.to_s
-				t = UtilsBase.split_time(time)
-				time_t = Time.new(t.year, t.month, t.day).to_i.to_s
-				@db_helper.insert({title: title, time: time, create_time: now_t, modify_time: now_t, timestamp: time_t, content: content, location: location, nid: last_nid + 1, isActive: Disposition::COMMON_SUMMARY_IS_ACTIVE.to_s})
+				@db_helper.insert({title: title, time: Time.now.to_i.to_s, content: content, nid: last_nid + 1, isActive: Disposition::COMMON_SUMMARY_IS_ACTIVE.to_s, writer: writer, hits: 0, origin: ''})
 			end
 
-			def find_briefs(num)
+			def find_briefs_by_page(num)
 				result = @db_helper.find_by({isActive: Disposition::COMMON_SUMMARY_IS_ACTIVE.to_s})
 				return if result.nil?
-				res = result.sort({timestamp: -1}).limit(Disposition::COMMON_SUMMARY_PAGE_MAX_NUM).skip(@summary_helper.format_page(num)).to_a
+				res = result.sort({time: -1}).limit(Disposition::COMMON_SUMMARY_PAGE_MAX_NUM).skip(@summary_helper.num_summarys(num)).to_a
 				return if res.empty?
 				final = []
-				res.map {|l| final << SummaryBriefs.new(l['time'], l['title'], l['nid'])}
+				res.map {|l| final << SummaryBriefs.new(UtilsBase.format_brief_time(l['time']), l['title'], l['nid'].to_i)}
 				final
 			end
 
-			def active?(nid)
-				result = @db_helper.find_one({isActive: Disposition::COMMON_SUMMARY_IS_ACTIVE.to_s, nid: nid})
+			def active?
+				result = @db_helper.find_one({isActive: Disposition::COMMON_SUMMARY_IS_ACTIVE.to_s, nid: @summary.nid})
 				!result.nil?
 			end
 
-			def update(nid, title, time, location, content)
-				t = UtilsBase.split_time(time)
-				time_t = Time.new(t.year, t.month, t.day).to_i.to_s
-				@db_helper.update({nid: nid}, {"$set" => {title: title, time: time, timestamp: time_t, modify_time: Time.now.to_i.to_s, content: content, location: location}})['updatedExisting']
+			def update(nid, title, writer, content)
+				@db_helper.update({nid: nid}, {"$set" => {title: title, writer: writer,content: content}})['updatedExisting']
 			end
 
-			def find_du_briefs(num)
-				[self.find_simple_briefs(num - 1), self.find_simple_briefs(num + 1)]
-			end
+			#def find_du_briefs(num)
+				#[self.find_simple_briefs(num - 1), self.find_simple_briefs(num + 1)]
+			#end
 
-			def find_simple_briefs(num)
-				return if num <= 0
-				r = @db_helper.find_one({nid: num.to_i})
-				return if r.nil?
-				SummaryBriefs.new(r['time'], r['title'][0, 10], r['nid'])
-			end
+			#def find_simple_briefs(num)
+				#return if num <= 0
+				#r = @db_helper.find_one({nid: num.to_i})
+				#return if r.nil?
+				#SummaryBriefs.new(r['time'], r['title'][0, 10], r['nid'])
+			#end
 
+			def init_summary(arg = {})
+				arg.map {|key, value| @summary.instance_variable_set("@#{key}", value)} unless arg.empty?
+				self
+			end
 
 		end
 	end

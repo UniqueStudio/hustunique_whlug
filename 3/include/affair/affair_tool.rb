@@ -42,22 +42,20 @@ module Ash
 				!result.nil?
 			end
 
-			def update(nid, title, time, location, content)
-				t = UtilsBase.split_time(time)
-				time_t = Time.new(t.year, t.month, t.day).to_i.to_s
-				@db_helper.update({nid: nid}, {"$set" => {title: title, time: time, timestamp: time_t, modify_time: Time.now.to_i.to_s, content: content, location: location}})['updatedExisting']
+			def update(nid, title, writer, content)
+				@db_helper.update({nid: nid}, {"$set" => {title: title, writer: writer,content: content}})['updatedExisting']
 			end
 
-			def find_du_briefs(num)
-				[self.find_simple_briefs(num - 1), self.find_simple_briefs(num + 1)]
-			end
+			#def find_du_briefs(num)
+				#[self.find_simple_briefs(num - 1), self.find_simple_briefs(num + 1)]
+			#end
 
-			def find_simple_briefs(num)
-				return if num <= 0
-				r = @db_helper.find_one({nid: num.to_i})
-				return if r.nil?
-				AffairBriefs.new(r['time'], r['title'][0, 10], r['nid'])
-			end
+			#def find_simple_briefs(num)
+				#return if num <= 0
+				#r = @db_helper.find_one({nid: num.to_i})
+				#return if r.nil?
+				#AffairBriefs.new(r['time'], r['title'][0, 10], r['nid'])
+			#end
 
 			def init_affair(arg = {})
 				arg.map {|key, value| @affair.instance_variable_set("@#{key}", value)} unless arg.empty?

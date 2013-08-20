@@ -12,32 +12,38 @@ end
 module Ash
 	module ModuleApp
 
-		SummaryListPages = Struct.new(:content, :sum_info_length, :sum_pages_length, :each_page_langth, :now_page) do
+		SummaryListPages = Struct.new(:content, :now_page, :left_page, :right_page) do
 			def get_binding; binding(); end
 		end
 
-		SummaryList = Struct.new(:title, :time, :location, :content, :nid) do
-			def get_binding; binding(); end
-		end
+		#SummaryList = Struct.new(:title, :fmt_time, :content, :nid, :writer, ) do
+			#def get_binding; binding(); end
+		#end
 
 		class SummarysetterControl < Control
 
 			public
-			def ct_list_pages(page)
+			def ct_list_page(page = 1)
 				et = ModuleTool::SummaryTool.new
-				sum_info_length = et.summary_helper.active_count
-				sum_pages_length = (sum_info_length / Disposition::COMMON_SUMMARY_PAGE_MAX_NUM.to_f).ceil
-				page =1 if page <= 0 or sum_pages_length < page
-				SummaryListPages.new(et.find_briefs(page), sum_info_length, sum_pages_length, Disposition::COMMON_SETTER_PAGE_MAX_NUM, page)
+				sp_len = (et.summary_helper.active_count / Disposition::COMMON_SUMMARY_PAGE_MAX_NUM.to_f).ceil
+				page = 1 if page <= 0 or sp_len < page
+				l_page, r_page = page - 1, page + 1
+				l_page = nil if l_page == 0
+				r_page = nil if r_page > sp_len
+				SummaryListPages.new(et.find_briefs_by_page(page), page, l_page, r_page)
 			end
 
-			def ct_verify_add_summary(title, time, loc, cont)
-				begin
-					title, time, loc, cont = title.strip, time.strip, loc.strip, cont.strip
+			def ct_list_details(num = 1)
+				ModuleTool::SummaryTool.new.summary_helper.find_by_nid(num)
+			end
 
-					_verify = self._ct_verify_summary(title, time, loc, cont)
+			def ct_verify_add(title = '', writer = '', cont = '')
+				begin
+					title, writer, cont = title.strip, writer.strip, cont.strip
+
+					_verify = self._ct_verify(title, writer, cont)
 					return _verify unless _verify.nil?
-					ModuleTool::SummaryTool.new.insert(title, time, loc, cont)
+					ModuleTool::SummaryTool.new.insert(title, writer, cont)
 					UtilsBase.inte_succ_info
 				rescue
 					UtilsBase.dev_mode? and raise
@@ -45,35 +51,39 @@ module Ash
 				end
 			end
 
-			def ct_list_summarys(num)
-				res = ModuleTool::SummaryTool.new.summary_helper.find_by_nid(num)
-				return if res.nil?
-				SummaryList.new(res.summary.title, res.summary.time, res.summary.location, res.summary.content, res.summary.nid)
-			end
-
-			def ct_verify_edit_summary(num, title, time, loc, cont)
+			def ct_verify_edit(num = '', title = '', writer = '', cont = '')
 				begin
-					num, title, time, loc, cont = num.strip, title.strip, time.strip, loc.strip, cont.strip
+					num, title, writer, cont = num.strip, title.strip, writer.strip, cont.strip
+
 					num = num.to_i
-					et = ModuleTool::SummaryTool.new
-					return UtilsBase.inte_err_info(4001, 'Page Do Not Edit') unless et.active?(num)
+					et = ModuleTool::SummaryTool.new.init_summary(nid: num)
+					return UtilsBase.inte_err_info(4001, 'Page Do Not Edit') unless et.active?
 
-					_verify = self._ct_verify_summary(title, time, loc, cont)
+					_verify = self._ct_verify(title, writer, cont)
 					return _verify unless _verify.nil?
-					et.update(num, title, time, loc, cont)
+					et.update(num, title, writer, cont)
 					UtilsBase.inte_succ_info
 				rescue
 					UtilsBase.dev_mode? and raise
 					UtilsBase.inte_bigerr_info
 				end
+			end
+
+			def ct_delete(num)
+				cont = Disposition::COMMON_PAGE_DELETE_SUCC
+				at = ModuleTool::SummaryTool.new.init_summary(nid: num)
+				if at.active?
+					cont = Disposition::COMMON_PAGE_DELETE_ERROR unless at.summary_helper.not_active
+				else
+					cont = Disposition::COMMON_PAGE_NOT_EXIST
+				end
+				cont
 			end
 
 			protected
-			def _ct_verify_summary(title, time, loc, cont)
+			def _ct_verify(title, writer, cont)
 				return UtilsBase.inte_err_info(2001, 'Summary Title Not Empty') if title.empty?
-				return UtilsBase.inte_err_info(2002, 'Summary Time Not Empty') if time.empty?
-				return UtilsBase.inte_err_info(2003, 'Summary Time Format Error') unless UtilsBase.time?(time)
-				return UtilsBase.inte_err_info(2004, 'Summary Location Not Empty') if loc.empty?
+				return UtilsBase.inte_err_info(2002, 'Summary Time Not Empty') if writer.empty?
 				return UtilsBase.inte_err_info(2005, 'Summary Content Not Empty') if cont.empty?
 			end
 

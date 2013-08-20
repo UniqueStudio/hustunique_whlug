@@ -14,11 +14,13 @@ module Ash
 
 		class Summary
 
-			attr_accessor :id, :title, :time, :timestamp, :content, :location, :nid, :active
+			attr_accessor :id, :title, :fmt_time, :content, :nid, :active, :writer, :hits, :origin
 			def initialize(args = {})
 				raise SummaryException, "Summary initialize argument error" unless args.instance_of? Hash
 				args.map { |key, value| instance_variable_set("@#{key}", value)} unless args.empty?
 			end
+
+			def get_binding; binding(); end
 		end
 
 		class SummaryResult
@@ -32,15 +34,15 @@ module Ash
 					@summary << Summary.new(
 						id: summary['_id'].to_s || nil,
 						title: summary['title'] || nil,
-						time: summary['time'] || nil,
-						timestamp: summary['timestamp'] || nil,
+						fmt_time: summary.has_key?('time') ? UtilsBase.format_time(summary['time']) : nil,
 						content: summary['content'] || nil,
-						location: summary['location'] || nil,
-						nid: summary['nid'] || nil,
-						active: summary.has_key?('isActive') ? self.active?(summary['isActive']) : nil
+						nid: summary.has_key?('nid') ? summary['nid'].to_i : nil,
+						active: summary.has_key?('isActive') ? UtilsBase.active?(summary['isActive'], Disposition::COMMON_SUMMARY_IS_ACTIVE) : nil,
+						writer: summary['writer'] || nil,
+						hits: summary.has_key?('hits') ? summary['hits'].to_i : nil,
+						origin: summary['origin'] || nil,
 					)
 				end
-				@summary = @summary.first  if @summary.length == 1
 			end
 
 			protected
@@ -57,33 +59,12 @@ module Ash
 				@summary = Summary.new
 			end
 
-			def find_all_by_email(email = nil)
-				@summary.email = email unless email.nil?
-				raise SummaryException, "email error" if @summary.email.nil? or !UtilsBase.email?(@summary.email)
-				result = @helper.find_one({email: @summary.email})
-				return result if result.nil?
-				SummaryResult.new(result)
-			end
-
-			def find_all_by_uid(uid = nil)
-				@summary.id = uid unless uid.nil?
-				raise SummaryException, "uid error" if @summary.id.nil? or !BSON::ObjectId.legal?(@summary.id)
-				result = @helper.find_one({_id: BSON::ObjectId(@summary.id)})
-				return result if result.nil?
-				SummaryResult.new(result)
-			end
-
 			def find_by_nid(nid = nil)
 				@summary.nid = nid unless nid.nil?
 				raise SummaryException, "nid error" unless @summary.nid.instance_of? Fixnum
 				result = @helper.find_one({isActive: Disposition::COMMON_SUMMARY_IS_ACTIVE.to_s, nid: @summary.nid})
-				return result if result.nil?
-				SummaryResult.new(result)
-			end
-
-			def init_summary(arg = {})
-				arg.map {|key, value| @summary.instance_variable_set("@#{key}", value)} unless arg.empty?
-				self
+				return if result.nil?
+				SummaryResult.new(result).summary.first
 			end
 
 			def find_last_nid
@@ -91,7 +72,7 @@ module Ash
 				res.empty? ? 0 : res.first['nid']
 			end
 
-			def format_page(page)
+			def num_summarys(page)
 				raise SummaryException, "format_page argument error" unless page.instance_of? Fixnum
 				page = 1 if page <= 1
 				(page - 1) * Disposition::COMMON_SUMMARY_PAGE_MAX_NUM
@@ -101,11 +82,23 @@ module Ash
 				@helper.find_by({isActive: Disposition::COMMON_SUMMARY_IS_ACTIVE.to_s}).to_a.length
 			end
 
+			def hits_increase(nid = nil)
+				@summary.nid = nid unless nid.nil?
+				raise SummaryException, "hits_increase argument error" unless @summary.nid.instance_of? Fixnum
+				@helper.update({nid: @summary.nid}, {"$inc" => {hits: 1}})['updatedExisting']
+			end
+
+			def not_active(nid = nil)
+				@summary.nid = nid unless nid.nil?
+				raise SummaryException, "not_active argument error" unless @summary.nid.instance_of? Fixnum
+				@helper.update({nid: @summary.nid}, {"$set" => {isActive: Disposition::COMMON_SUMMARY_NOT_IS_ACTIVE.to_s}})['updatedExisting']
+			end
+
 			protected
 			def _find_all(query = {}, nlimit = 10, nskip = 0)
 				result = @helper.find_by(query)
 				return nil if result.nil?
-				SummaryResult.new(result.sort(timestamp: -1).limit(nlimit).skip(nskip).to_a)
+				SummaryResult.new(result.sort(time: -1).limit(nlimit).skip(nskip).to_a)
 			end
 		end
 

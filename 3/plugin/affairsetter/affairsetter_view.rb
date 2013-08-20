@@ -78,10 +78,12 @@ module Ash
 					cont = ERB.new(self.load_static_file('delete.rhtml', 'affairsetter')).result(binding)
 					ERB.new(self.load_admin_file).result(ModuleTool::PagesetterList.new(cont, Disposition::COMMON_PAGE_EDIT_AFFAIR).get_binding)
 				rescue
+					UtilsBase.dev_mode? and raise
+					UtilsBase.inte_bigerr_info
 				end
 			end
 
-			def view_verify_edit_affair(*args); @api.ct_verify_edit_affair(*args); end
+			def view_verify_edit(*args); @api.ct_verify_edit(*args); end
 
 		end
 	end

@@ -61,7 +61,7 @@ post '/wlg/setting/affair/edit/:num' do
 	redirect to('/wlg-login') unless checked?
   Ash::UtilsModules.load_files 'affairsetter'
 	Ash::UtilsModules.display_outline(request.dup, 'view_verify_edit', params.dup)
-	Ash::ModuleApp::AffairsetterView.new.view_verify_edit(params['num'], params['e_s_title'], params['e_s_time'], params['e_s_loc'], params['e_s_cont'])
+	Ash::ModuleApp::AffairsetterView.new.view_verify_edit(params['num'], params['e_s_title'], params['e_s_writer'], params['e_s_cont'])
 end
 
 get '/wlg/setting/affair/delete/:num' do

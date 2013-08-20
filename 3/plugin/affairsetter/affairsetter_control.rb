@@ -51,16 +51,17 @@ module Ash
 				end
 			end
 
-			def ct_verify_edit_affair(num, title, time, loc, cont)
+			def ct_verify_edit(num = '', title = '', writer = '', cont = '')
 				begin
-					num, title, time, loc, cont = num.strip, title.strip, time.strip, loc.strip, cont.strip
-					num = num.to_i
-					et = ModuleTool::AffairTool.new
-					return UtilsBase.inte_err_info(4001, 'Page Do Not Edit') unless et.active?(num)
+					num, title, writer, cont = num.strip, title.strip, writer.strip, cont.strip
 
-					_verify = self._ct_verify_affair(title, time, loc, cont)
+					num = num.to_i
+					et = ModuleTool::AffairTool.new.init_affair(nid: num)
+					return UtilsBase.inte_err_info(4001, 'Page Do Not Edit') unless et.active?
+
+					_verify = self._ct_verify(title, writer, cont)
 					return _verify unless _verify.nil?
-					et.update(num, title, time, loc, cont)
+					et.update(num, title, writer, cont)
 					UtilsBase.inte_succ_info
 				rescue
 					UtilsBase.dev_mode? and raise

@@ -22,12 +22,9 @@ module Ash
 			end
 
 			public
-			def insert(title, time, location, content)
+			def insert(title, writer, content)
 				last_nid = @event_helper.find_last_nid
-				now_t = Time.now.to_i.to_s
-				t = UtilsBase.split_time(time)
-				time_t = Time.new(t.year, t.month, t.day).to_i.to_s
-				@db_helper.insert({title: title, time: time, create_time: now_t, modify_time: now_t, timestamp: time_t, content: content, location: location, nid: last_nid + 1, isActive: Disposition::COMMON_EVENT_IS_ACTIVE.to_s})
+				@db_helper.insert({title: title, time: Time.now.to_i.to_s, content: content, nid: last_nid + 1, isActive: Disposition::COMMON_EVENT_IS_ACTIVE.to_s, writer: writer, hits: 0, origin: ''})
 			end
 
 			def find_briefs_by_page(num)
@@ -40,35 +37,30 @@ module Ash
 				final
 			end
 
-			def active?(nid)
-				result = @db_helper.find_one({isActive: Disposition::COMMON_EVENT_IS_ACTIVE.to_s, nid: nid})
+			def active?
+				result = @db_helper.find_one({isActive: Disposition::COMMON_EVENT_IS_ACTIVE.to_s, nid: @event.nid})
 				!result.nil?
 			end
 
-			def update(nid, title, time, location, content)
-				t = UtilsBase.split_time(time)
-				time_t = Time.new(t.year, t.month, t.day).to_i.to_s
-				@db_helper.update({nid: nid}, {"$set" => {title: title, time: time, timestamp: time_t, modify_time: Time.now.to_i.to_s, content: content, location: location}})['updatedExisting']
+			def update(nid, title, writer, content)
+				@db_helper.update({nid: nid}, {"$set" => {title: title, writer: writer,content: content}})['updatedExisting']
 			end
 
-			def find_du_briefs(num)
-				[self.find_simple_briefs(num - 1), self.find_simple_briefs(num + 1)]
-			end
-
-			def find_simple_briefs(nid)
-				return if nid <= 0
-				r = @event_helper.find_by_nid(nid)
-				return if r.nil?
-				EventBriefs.new(r.fmt_time, r.title, r.nid)
-			end
-
-			#def find_new
-				#res = @event_helper.find_by({}).sort(time: -1).limit(1).to_a
-				#pp res
-				#return if res.empty?
-				#ExtraDB::EventResult.new(res).event.first
+			#def find_du_briefs(num)
+				#[self.find_simple_briefs(num - 1), self.find_simple_briefs(num + 1)]
 			#end
 
+			#def find_simple_briefs(num)
+				#return if num <= 0
+				#r = @db_helper.find_one({nid: num.to_i})
+				#return if r.nil?
+				#EventBriefs.new(r['time'], r['title'][0, 10], r['nid'])
+			#end
+
+			def init_event(arg = {})
+				arg.map {|key, value| @event.instance_variable_set("@#{key}", value)} unless arg.empty?
+				self
+			end
 
 		end
 	end

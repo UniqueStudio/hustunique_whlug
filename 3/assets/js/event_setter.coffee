@@ -1,8 +1,4 @@
 $(document).ready ->
-	$("div#e_s_datetimepicker").datetimepicker({
-		#maskInput: false
-		pickTime: false
-	})
 	$("textarea#e_s_content").wysihtml5(
 		'stylesheets': ['/bootstrap/css/wysiwyg-color.css']
 	)
@@ -17,20 +13,15 @@ $(document).ready ->
 		elm_alert.hide()
 		elm_err.html('')
 
-	$("button.a_e_cancel").click ->
-		window.location.href = "/wlg/setting/event/page"
-
 	$("button.a_e_save").click ->
 		hidden_error_info()
 
 		e_title = $.trim $("input#e_s_title").val()
-		e_time = $.trim $("input#e_s_time").val()
-		e_location = $.trim $("input#e_s_location").val()
+		e_writer = $.trim $("input#e_s_writer").val()
 		e_content = $.trim $("textarea#e_s_content").val()
 		checker = new Checker()
 		return dispaly_error_info(checker.error) if checker.isTitle(e_title).isError()
-		return dispaly_error_info(checker.error) if checker.isTime(e_time).isError()
-		return dispaly_error_info(checker.error) if checker.isLocation(e_location).isError()
+		return dispaly_error_info(checker.error) if checker.isWriter(e_writer).isError()
 		return dispaly_error_info(checker.error) if checker.isContent(e_content).isError()
 
 		$.ajax({
@@ -38,8 +29,7 @@ $(document).ready ->
 			url: '/wlg/setting/event/add'
 			data:{
 				e_s_title: e_title
-				e_s_time: e_time
-				e_s_loc: e_location
+				e_s_writer: e_writer
 				e_s_cont: e_content
 			}
 			success: (result)->

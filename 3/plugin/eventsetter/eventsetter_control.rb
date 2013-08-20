@@ -16,32 +16,34 @@ module Ash
 			def get_binding; binding(); end
 		end
 
-		EventList = Struct.new(:title, :time, :location, :content, :nid) do
-			def get_binding; binding(); end
-		end
+		#EventList = Struct.new(:title, :fmt_time, :content, :nid, :writer, ) do
+			#def get_binding; binding(); end
+		#end
 
 		class EventsetterControl < Control
 
 			public
-			def ct_list_page(page)
+			def ct_list_page(page = 1)
 				et = ModuleTool::EventTool.new
 				sp_len = (et.event_helper.active_count / Disposition::COMMON_EVENT_PAGE_MAX_NUM.to_f).ceil
-				page =1 if page <= 0 or sp_len < page
-				if sp_len != 1
-					l_page, r_page = (page == 1 ? nil : page - 1), (page == sp_len ? page - 1 : nil)
-				else
-					l_page = r_page = nil
-				end
+				page = 1 if page <= 0 or sp_len < page
+				l_page, r_page = page - 1, page + 1
+				l_page = nil if l_page == 0
+				r_page = nil if r_page > sp_len
 				EventListPages.new(et.find_briefs_by_page(page), page, l_page, r_page)
 			end
 
-			def ct_verify_add_event(title, time, loc, cont)
-				begin
-					title, time, loc, cont = title.strip, time.strip, loc.strip, cont.strip
+			def ct_list_details(num = 1)
+				ModuleTool::EventTool.new.event_helper.find_by_nid(num)
+			end
 
-					_verify = self._ct_verify_event(title, time, loc, cont)
+			def ct_verify_add(title = '', writer = '', cont = '')
+				begin
+					title, writer, cont = title.strip, writer.strip, cont.strip
+
+					_verify = self._ct_verify(title, writer, cont)
 					return _verify unless _verify.nil?
-					ModuleTool::EventTool.new.insert(title, time, loc, cont)
+					ModuleTool::EventTool.new.insert(title, writer, cont)
 					UtilsBase.inte_succ_info
 				rescue
 					UtilsBase.dev_mode? and raise
@@ -49,35 +51,39 @@ module Ash
 				end
 			end
 
-			def ct_list_events(num)
-				res = ModuleTool::EventTool.new.event_helper.find_by_nid(num)
-				return if res.nil?
-				EventList.new(res.event.title, res.event.time, res.event.location, res.event.content, res.event.nid)
-			end
-
-			def ct_verify_edit_event(num, title, time, loc, cont)
+			def ct_verify_edit(num = '', title = '', writer = '', cont = '')
 				begin
-					num, title, time, loc, cont = num.strip, title.strip, time.strip, loc.strip, cont.strip
+					num, title, writer, cont = num.strip, title.strip, writer.strip, cont.strip
+
 					num = num.to_i
-					et = ModuleTool::EventTool.new
-					return UtilsBase.inte_err_info(4001, 'Page Do Not Edit') unless et.active?(num)
+					et = ModuleTool::EventTool.new.init_event(nid: num)
+					return UtilsBase.inte_err_info(4001, 'Page Do Not Edit') unless et.active?
 
-					_verify = self._ct_verify_event(title, time, loc, cont)
+					_verify = self._ct_verify(title, writer, cont)
 					return _verify unless _verify.nil?
-					et.update(num, title, time, loc, cont)
+					et.update(num, title, writer, cont)
 					UtilsBase.inte_succ_info
 				rescue
 					UtilsBase.dev_mode? and raise
 					UtilsBase.inte_bigerr_info
 				end
+			end
+
+			def ct_delete(num)
+				cont = Disposition::COMMON_PAGE_DELETE_SUCC
+				at = ModuleTool::EventTool.new.init_event(nid: num)
+				if at.active?
+					cont = Disposition::COMMON_PAGE_DELETE_ERROR unless at.event_helper.not_active
+				else
+					cont = Disposition::COMMON_PAGE_NOT_EXIST
+				end
+				cont
 			end
 
 			protected
-			def _ct_verify_event(title, time, loc, cont)
+			def _ct_verify(title, writer, cont)
 				return UtilsBase.inte_err_info(2001, 'Event Title Not Empty') if title.empty?
-				return UtilsBase.inte_err_info(2002, 'Event Time Not Empty') if time.empty?
-				return UtilsBase.inte_err_info(2003, 'Event Time Format Error') unless UtilsBase.time?(time)
-				return UtilsBase.inte_err_info(2004, 'Event Location Not Empty') if loc.empty?
+				return UtilsBase.inte_err_info(2002, 'Event Time Not Empty') if writer.empty?
 				return UtilsBase.inte_err_info(2005, 'Event Content Not Empty') if cont.empty?
 			end
 

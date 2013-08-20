@@ -44,9 +44,6 @@ module Ash
 					)
 				end
 			end
-
-			protected
-			def active?(act); act == Disposition::COMMON_EVENT_IS_ACTIVE.to_s; end
 		end
 
 		class EventHelper
@@ -67,6 +64,11 @@ module Ash
 				EventResult.new(result).event.first
 			end
 
+			def init_event(arg = {})
+				arg.map {|key, value| @event.instance_variable_set("@#{key}", value)} unless arg.empty?
+				self
+			end
+
 			def find_last_nid
 				res = @helper.find_by({}).sort({_id: -1}).limit(1).to_a
 				res.empty? ? 0 : res.first['nid']
@@ -82,16 +84,8 @@ module Ash
 				@helper.find_by({isActive: Disposition::COMMON_EVENT_IS_ACTIVE.to_s}).to_a.length
 			end
 
-			def hits_increase(nid = nil)
-				@event.nid = nid unless nid.nil?
-				raise EventException, "hits_increase argument error" unless @event.nid.instance_of? Fixnum
-				@helper.update({nid: @event.nid}, {"$inc" => {hits: 1}})['updatedExisting']
-			end
-
-			def not_active(nid = nil)
-				@event.nid = nid unless nid.nil?
-				raise EventException, "not_active argument error" unless @event.nid.instance_of? Fixnum
-				@helper.update({nid: @event.nid}, {"$set" => {isActive: Disposition::COMMON_EVENT_NOT_IS_ACTIVE.to_s}})['updatedExisting']
+			def find_by(*args)
+				@helper.find_by(*args)
 			end
 
 			protected

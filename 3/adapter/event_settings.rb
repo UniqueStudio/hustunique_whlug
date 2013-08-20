@@ -2,14 +2,6 @@
 
 exit unless Object.const_defined? :ACCESS_ERROR
 
-get '/wlg/setting' do
-	status, headers, body = call env.merge("PATH_INFO" => '/wlg/setting/event/page/1')
-	[status, headers, body]
-end
-get '/wlg/setting/' do
-	status, headers, body = call env.merge("PATH_INFO" => '/wlg/setting/event/page/1')
-	[status, headers, body]
-end
 get '/wlg/setting/event' do
 	status, headers, body = call env.merge("PATH_INFO" => '/wlg/setting/event/page/1')
 	[status, headers, body]
@@ -26,17 +18,17 @@ get '/wlg/setting/event/page/:num' do
 end
 
 get '/wlg/setting/event/add' do
-	redirect to('/wlg-login') unless session[:ash_uid] == 0
+	redirect to('/wlg-login') unless checked?
   Ash::UtilsModules.load_files 'eventsetter'
-	Ash::UtilsModules.display_outline(request.dup, 'view_add_event')
-	Ash::ModuleApp::EventsetterView.new.view_add_event
+	Ash::UtilsModules.display_outline(request.dup, 'view_add')
+	Ash::ModuleApp::EventsetterView.new.view_add
 end
 
 post '/wlg/setting/event/add' do
-	redirect to('/wlg-login') unless session[:ash_uid] == 0
+	redirect to('/wlg-login') unless checked?
   Ash::UtilsModules.load_files 'eventsetter'
-	Ash::UtilsModules.display_outline(request.dup, 'view_verify_add_event', params.dup)
-	Ash::ModuleApp::EventsetterView.new.view_verify_add_event(params['e_s_title'], params['e_s_time'], params['e_s_loc'], params['e_s_cont'])
+	Ash::UtilsModules.display_outline(request.dup, 'view_verify_add', params.dup)
+	Ash::ModuleApp::EventsetterView.new.view_verify_add(params['e_s_title'], params['e_s_writer'], params['e_s_cont'])
 end
 
 get '/wlg/setting/event/list' do
@@ -44,22 +36,29 @@ get '/wlg/setting/event/list' do
 	[status, headers, body]
 end
 get '/wlg/setting/event/list/:num' do
-	redirect to('/wlg-login') unless session[:ash_uid] == 0
+	redirect to('/wlg-login') unless checked?
   Ash::UtilsModules.load_files 'eventsetter'
-	Ash::UtilsModules.display_outline(request.dup, 'view_list_info', params.dup)
-	Ash::ModuleApp::EventsetterView.new.view_list_event(params['num'])
+	Ash::UtilsModules.display_outline(request.dup, 'view_list_details', params.dup)
+	Ash::ModuleApp::EventsetterView.new.view_list_details(params['num'])
 end
 
 get '/wlg/setting/event/edit/:num' do
-	redirect to('/wlg-login') unless session[:ash_uid] == 0
+	redirect to('/wlg-login') unless checked?
   Ash::UtilsModules.load_files 'eventsetter'
-	Ash::UtilsModules.display_outline(request.dup, 'view_edit_event', params.dup)
-	Ash::ModuleApp::EventsetterView.new.view_edit_event(params['num'])
+	Ash::UtilsModules.display_outline(request.dup, 'view_edit', params.dup)
+	Ash::ModuleApp::EventsetterView.new.view_edit(params['num'])
 end
 
 post '/wlg/setting/event/edit/:num' do
-	redirect to('/wlg-login') unless session[:ash_uid] == 0
+	redirect to('/wlg-login') unless checked?
   Ash::UtilsModules.load_files 'eventsetter'
-	Ash::UtilsModules.display_outline(request.dup, 'view_verify_edit_event', params.dup)
-	Ash::ModuleApp::EventsetterView.new.view_verify_edit_event(params['num'], params['e_s_title'], params['e_s_time'], params['e_s_loc'], params['e_s_cont'])
+	Ash::UtilsModules.display_outline(request.dup, 'view_verify_edit', params.dup)
+	Ash::ModuleApp::EventsetterView.new.view_verify_edit(params['num'], params['e_s_title'], params['e_s_writer'], params['e_s_cont'])
+end
+
+get '/wlg/setting/event/delete/:num' do
+	redirect to('/wlg-login') unless checked?
+  Ash::UtilsModules.load_files 'eventsetter'
+	Ash::UtilsModules.display_outline(request.dup, 'view_delete', params.dup)
+	Ash::ModuleApp::EventsetterView.new.view_delete(params['num'])
 end
