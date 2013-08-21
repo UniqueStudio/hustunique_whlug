@@ -70,11 +70,11 @@ module Ash
 			end
 
 			#def find_all_by_uid(uid = nil)
-				#@member.id = uid unless uid.nil?
-				#raise MemberException, "uid error" if @member.id.nil? or !BSON::ObjectId.legal?(@member.id)
-				#result = @helper.find_one({_id: BSON::ObjectId(@member.id)})
-				#return result if result.nil?
-				#MemberResult.new(result)
+			#@member.id = uid unless uid.nil?
+			#raise MemberException, "uid error" if @member.id.nil? or !BSON::ObjectId.legal?(@member.id)
+			#result = @helper.find_one({_id: BSON::ObjectId(@member.id)})
+			#return result if result.nil?
+			#MemberResult.new(result)
 			#end
 		end
 

@@ -1,5 +1,5 @@
 <div style="margin-bottom: 10px;">
-	<a href="/wlg/setting/affair/add" class="btn btn-success"><i class="icon-plus-sign"></i>事务</a>
+	<a href="/wlg/setting/affair/add" class="btn btn-success"><i class="icon-plus-sign"></i>添加</a>
 </div>
 <ol class="breadcrumb">
 	<li>
@@ -12,7 +12,8 @@
 <div class="container span11 list">
 	<%if !content.nil? and !content.empty?%>
 		<%content.map do |list|%>
-			<a href="/wlg/setting/affair/list/<%=list.nid%>"><%=list.title%><span><%=list.time%></span></a>
+			<a href="/wlg/setting/affair/list/<%=list.nid%>"><%if list.title.length > Disposition::COMMON_PAGE_LIST_MAX_LENGTH%><%=list.title[0, Disposition::COMMON_PAGE_LIST_MAX_LENGTH]%>...<%else%><%=list.title%><%end%>
+			<span><%=list.time%></span></a>
 			<hr />
 		<%end%>
 	<%else%>

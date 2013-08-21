@@ -9,7 +9,8 @@
 <div class="container span11 list">
 	<%if !content.nil? and !content.empty?%>
 		<%content.map do |list|%>
-			<a href="/summary/list/<%=list.nid%>"><%=list.title%><span><%=list.time%></span></a>
+			<a href="/summary/list/<%=list.nid%>"><%if list.title.length > Disposition::COMMON_PAGE_LIST_MAX_LENGTH%><%=list.title[0, Disposition::COMMON_PAGE_LIST_MAX_LENGTH]%>...<%else%><%=list.title%><%end%>
+			<span><%=list.time%></span></a>
 			<hr />
 		<%end%>
 	<%else%>

@@ -37,6 +37,14 @@ module Ash
 				final
 			end
 
+			def find_all_by_page(num)
+				result = @db_helper.find_by({isActive: Disposition::COMMON_AFFAIR_IS_ACTIVE.to_s})
+				return if result.nil?
+				res = result.sort({time: -1}).limit(Disposition::COMMON_AFFAIR_PAGE_MAX_NUM).skip(@affair_helper.num_affairs(num)).to_a
+				return if res.empty?
+				ExtraDB::AffairResult.new(res)
+			end
+
 			def active?
 				result = @db_helper.find_one({isActive: Disposition::COMMON_AFFAIR_IS_ACTIVE.to_s, nid: @affair.nid})
 				!result.nil?

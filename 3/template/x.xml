@@ -12,15 +12,15 @@
       <title>title</title>
       <link>www.example.com/1</link>
       <description>Main body</description>
-      <pubDate>Sat, 17 Aug 2013 08:22:02 +0800</pubDate>
-      <dc:date>2013-08-17T08:22:02.879946+08:00</dc:date>
+      <pubDate>Tue, 20 Aug 2013 21:23:42 +0800</pubDate>
+      <dc:date>2013-08-20T21:23:42.08192+08:00</dc:date>
     </item>
     <item>
       <title>title</title>
       <link>www.example.com/0</link>
       <description>Main body</description>
-      <pubDate>Sat, 17 Aug 2013 08:22:02 +0800</pubDate>
-      <dc:date>2013-08-17T08:22:02.879464+08:00</dc:date>
+      <pubDate>Tue, 20 Aug 2013 21:23:42 +0800</pubDate>
+      <dc:date>2013-08-20T21:23:42.08142+08:00</dc:date>
     </item>
   </channel>
 </rss>
