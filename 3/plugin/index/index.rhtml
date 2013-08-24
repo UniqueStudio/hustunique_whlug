@@ -1,141 +1,158 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Wuhan Linux Group</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Wuhan Linux user group 首页</title>
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<div class="container-fluid headerlist">
+  <div class="navbar navbar-static-top">
+    <ul  id="titlelist">
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a class="titlelist_a_hover" style="color: #8063f3;" href="javascript:none;">
+        首页
+        <p class="n2">Home</p>
+      </a>
+      </li>
 
-    <!-- Le styles -->
-    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/general.css" rel="stylesheet" />
-    <style type="text/css">
-      /* Custom container */
-      .container-narrow {
-        margin: 0 auto;
-        max-width: 900px;
-      }
-      .container-narrow > hr {
-        margin: 30px 0;
-      }
-      .thumblist {
-        margin-left: 0;
-      }
-      .thumbitem {
-        padding: 15px 8px 15px 8px;
-      }
-      .thumbitem span {
-        float: right;
-        color: #999;
-      }
-      hr {
-        margin: 8px 0;
-      }
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a href="/affair">
+        事务
+        <p class="n2">Affairs</p>
+      </a>
+      </li>
 
-      /* Supporting marketing content */
-      .marketing {
-        margin: 60px 0;
-      }
-      .marketing p + h4 {
-        margin-top: 28px;
-      }
-    </style>
-    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a href="/activity">
+        活动
+        <p class="n2">Activities</p>
+      </a>
+      </li>
 
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-    <script src="../assets/js/html5shiv.js"></script>
-    <![endif]-->
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a href="/review">
+        回顾
+        <p class="n2">Review</p>
+      </a>
+      </li>
 
-  </head>
-  <body>
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a href="/introduction">
+        WhLug介绍
+        <p class="n2">About  WhLug</p>
+      </a>
+      </li>
 
-    <div class="container-narrow">
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a href="/contact">
+        联系我们
+        <p class="n2">Contact  us</p>
+      </a>
+      </li>
+      <li class="divider-vertical n3"></li>
+    </ul>
+  </div>
+</div>
+<div class="container-fluid headername">
+  <div class="row-fluid">
+    <div class="span10 offset1">
+      <div class="name"></div>
+    </div>
+  </div>
+</div>
 
-      <div class="masthead">
-        <!-- <img src="img/LOGO.png" alt="logo" style="width: 90px; height:auto;" /> -->
-        <div class="navbar navbar-fixed-top navbar-inverse">
-          <div class="navbar-inner">
-            <div class="container-narrow">
-              <a class="brand" href="/">Whlug</a>
-              <ul class="nav">
-                <li class="active"><a href="/">首页</a></li>
-                <li><a href="/about">Whlug介绍</a></li>
-              </ul>
-            </div>
+<div class="container-fluid Lcontain">
+  <div class="row-fluid">
+    <div class="span10 offset1">
+      <div class="row-fluid">
+        <div class="span4">
+          <div class="row-fluid title">
+            <div class="span8 offset1 titlename">事务公告</div>
+            <div class="span2 offset1 titlemore"><a href="/affair">more</a></div>
+          </div>
+          <div class="table_border">
+            <table class="table">
+              <%if !affair.nil?%>
+                <%affair.map do |list|%>
+                <tr class="note note1">
+                  <td><div><a href="/affair/list/<%=list.nid%>" title="" alt=""><%=list.title%></a></div></td>
+                  <td class="date"><%=list.time%></td>
+                </tr>
+              <%end%>
+              <%else%>
+                <tr class="note note1">
+                  <td><div><a href="javascript: none;" title="" alt="">没有事务公告</a></div></td>
+                  <td class="date"></td>
+                </tr>
+              <%end%>
+            </table>
+          </div>
+        </div>
+        <div class="span4">
+          <div class="row-fluid title">
+            <div class="span8 offset1 titlename">活动公告</div>
+            <div class="span2 offset1 titlemore"><a href="/activity">more</a></div>
+          </div>
+          <div class="table_border">
+            <table class="table">
+              <%if !event.nil?%>
+                <%event.map do |list|%>
+                <tr class="note note1">
+                  <td><div><a href="/activity/list/<%=list.nid%>" title="" alt=""><%=list.title%></a></div></td>
+                  <td class="date"><%=list.time%></td>
+                </tr>
+              <%end%>
+              <%else%>
+                <tr class="note note1">
+                  <td><div><a href="javascript: none;" title="" alt="">没有活动公告</a></div></td>
+                  <td class="date"></td>
+                </tr>
+              <%end%>
+            </table>
+          </div>
+        </div>
+        <div class="span4">
+          <div class="row-fluid title">
+            <div class="span8 offset1 titlename">回顾</div>
+            <div class="span2 offset1 titlemore"><a href="/review">more</a></div>
+          </div>
+          <div class="table_border">
+            <table class="table">
+              <%if !summary.nil?%>
+                <%summary.map do |list|%>
+                <tr class="note note1">
+                  <td><div><a href="/review/list/<%=list.nid%>" title="" alt=""><%=list.title%></a></div></td>
+                  <td class="date"><%=list.time%></td>
+                </tr>
+              <%end%>
+              <%else%>
+                <tr class="note note1">
+                  <td><div><a href="javascript: none;" title="" alt="">没有回顾信息</a></div></td>
+                  <td class="date"></td>
+                </tr>
+              <%end%>
+            </table>
           </div>
         </div>
       </div>
-      <img src="/image/LOGO.png" alt="background" style="width: 800px; height:auto;" />
+    </div>
+  </div>
+</div>
 
-      <hr>
-
-      <div class="row-fluid marketing">
-        <div class="tabbable">
-          <ul class="thumbails thumblist">
-            <li class="span4">
-            <div class="thumbnail thumbitem">
-              <ul class="unstyled">
-								<%if !affair.nil?%>
-									<%affair.map do |list|%>
-										<li><a href="/affair/list/<%=list.nid%>"><%=list.title[0,length]%>...</a><span><%=list.time%></span></li>
-										<hr />
-									<%end%>
-									<span><a href="/affair/page">更多</a></span>
-								<%else%>
-									<li>无内容</li>
-								<%end%>
-              </ul>
-            </div>
-            </li>
-            <li class="span4">
-            <div class="thumbnail thumbitem">
-              <ul class="unstyled">
-								<%if !event.nil?%>
-									<%event.map do |list|%>
-										<li><a href="/event/list/<%=list.nid%>"><%=list.title[0,length]%>...</a><span><%=list.time%></span></li>
-										<hr />
-									<%end%>
-									<span><a href="/event/page">更多</a></span>
-								<%else%>
-									<li>无内容</li>
-								<%end%>
-              </ul>
-            </div>
-            </li>
-            <li class="span4">
-            <div class="thumbnail thumbitem">
-              <ul class="unstyled">
-								<%if !summary.nil?%>
-									<%summary.map do |list|%>
-										<li><a href="/summary/list/<%=list.nid%>"><%=list.title[0,length]%>...</a><span><%=list.time%></span></li>
-										<hr />
-									<%end%>
-									<span><a href="/summary/page">更多</a></span>
-								<%else%>
-									<li>无内容</li>
-								<%end%>
-              </ul>
-            </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <hr>
-
-      <div id="footer">
-        <p>&copy; Copyright 2013 Wuhan Linux User Group All Rights Reserved.</p>
-      </div>
-
-    </div> <!-- /container -->
-
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/js/jquery.min.js"></script>
-    <script src="/bootstrap/js/bootstrap.min.js"></script>
-
-  </body>
+<div class="container-fluid footer">
+  <div class="row-fluid">
+    <div class="span8 offset2">
+      <p>©Copyright 2013 Wuhan Linux User Group All Rights Reserved.</p>
+    </div>
+  </div>
+</div>
+</body>
 </html>

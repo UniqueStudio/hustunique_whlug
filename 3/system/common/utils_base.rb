@@ -1,10 +1,11 @@
-#coding: UTF-8
+#encoding: UTF-8
 
 exit unless Object.const_defined? :ACCESS_ERROR
 
 require 'set'
 require 'json'
 require 'digest'
+require 'cgi'
 
 module Ash
   module UtilsBase
@@ -34,6 +35,11 @@ module Ash
     def self.format_brief_time(time = '')
       raise ArgumentError, "format_brief_time argument error" if time.empty?
       Time.at(time.to_i).utc.strftime("%m-%d").to_s
+    end
+
+    def self.format_det_time(time = '')
+      raise ArgumentError, "format_brief_time argument error" if time.empty?
+      Time.at(time.to_i).utc.strftime("%F").to_s
     end
 
     def self.split_time(time = '')
@@ -88,6 +94,10 @@ module Ash
 
     def self.active?(u_act, s_act)
       u_act.to_s == s_act.to_s
+    end
+
+    def self.html_gsub(str)
+      str.gsub(/(<[^>]*>)|\n|\t/){""}
     end
   end
 end

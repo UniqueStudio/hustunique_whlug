@@ -12,6 +12,7 @@ module Ash
 	module ModuleTool
 
 		SummaryBriefs = Struct.new(:time, :title, :nid)
+    SummaryDetBriefs = Struct.new(:time, :title, :nid, :content, :hits)
 
 		class SummaryTool
 
@@ -36,6 +37,16 @@ module Ash
 				res.map {|l| final << SummaryBriefs.new(UtilsBase.format_brief_time(l['time']), l['title'], l['nid'].to_i)}
 				final
 			end
+
+      def find_det_briefs_by_page(num)
+        result = @db_helper.find_by({isActive: Disposition::COMMON_SUMMARY_IS_ACTIVE.to_s})
+        return if result.nil?
+        res = result.sort({time: -1}).limit(Disposition::COMMON_SUMMARY_PAGE_MAX_NUM).skip(@summary_helper.num_summarys(num)).to_a
+        return if res.empty?
+        final = []
+        res.map {|l| final << SummaryDetBriefs.new(UtilsBase.format_det_time(l['time']), l['title'], l['nid'].to_i, UtilsBase.html_gsub(l['content']), l['hits'].to_i)}
+        final
+      end
 
 			def active?
 				result = @db_helper.find_one({isActive: Disposition::COMMON_SUMMARY_IS_ACTIVE.to_s, nid: @summary.nid})

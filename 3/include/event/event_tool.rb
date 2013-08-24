@@ -12,6 +12,7 @@ module Ash
 	module ModuleTool
 
 		EventBriefs = Struct.new(:time, :title, :nid)
+    EventDetBriefs = Struct.new(:time, :title, :nid, :content, :hits)
 
 		class EventTool
 
@@ -36,6 +37,16 @@ module Ash
 				res.map {|l| final << EventBriefs.new(UtilsBase.format_brief_time(l['time']), l['title'], l['nid'].to_i)}
 				final
 			end
+
+      def find_det_briefs_by_page(num)
+        result = @db_helper.find_by({isActive: Disposition::COMMON_EVENT_IS_ACTIVE.to_s})
+        return if result.nil?
+        res = result.sort({time: -1}).limit(Disposition::COMMON_EVENT_PAGE_MAX_NUM).skip(@event_helper.num_events(num)).to_a
+        return if res.empty?
+        final = []
+        res.map {|l| final << EventDetBriefs.new(UtilsBase.format_det_time(l['time']), l['title'], l['nid'].to_i, UtilsBase.html_gsub(l['content']), l['hits'].to_i)}
+        final
+      end
 
 			def active?
 				result = @db_helper.find_one({isActive: Disposition::COMMON_EVENT_IS_ACTIVE.to_s, nid: @event.nid})

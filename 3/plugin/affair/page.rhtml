@@ -1,29 +1,131 @@
-<ol class="breadcrumb">
-	<li>
-	<a href="/affair">事务公告</a> <span class="divider">/</span>
-	</li>
-	<li class="active">
-	列表
-	</li>
-</ol>
-<div class="container span11 list">
-	<%if !content.nil? and !content.empty?%>
-		<%content.map do |list|%>
-			<a href="/affair/list/<%=list.nid%>"><%if list.title.length > Disposition::COMMON_PAGE_LIST_MAX_LENGTH%><%=list.title[0, Disposition::COMMON_PAGE_LIST_MAX_LENGTH]%>...<%else%><%=list.title%><%end%>
-			<span><%=list.time%></span></a>
-			<hr />
-		<%end%>
-	<%else%>
-		<div>没有事务</div>
-	<%end%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Wuhan Linux user group 事务列表</title>
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<div class="container-fluid headerlist">
+  <div class="navbar navbar-static-top">
+    <ul  id="titlelist">
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a href="/">
+        首页
+        <p class="n2">Home</p>
+      </a>
+      </li>
+
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a class="titlelist_a_hover" style="color: #8063f3;" href="javascript:none;">
+        事务
+        <p class="n2">Affairs</p>
+      </a>
+      </li>
+
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a href="/activity">
+        活动
+        <p class="n2">Activities</p>
+      </a>
+      </li>
+
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a href="/review">
+        回顾
+        <p class="n2">Review</p>
+      </a>
+      </li>
+
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a href="/introduction">
+        WhLug介绍
+        <p class="n2">About  WhLug</p>
+      </a>
+      </li>
+
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a href="#">
+        联系我们
+        <p class="n2">Contact  us</p>
+      </a>
+      </li>
+      <li class="divider-vertical n3"></li>
+    </ul>
+  </div>
 </div>
-<%if !left_page.nil? or !right_page.nil?%>
-<ul class="pager">
-	<%if !left_page.nil?%>
-		<li><a href="/affair/page/<%=left_page%>">前一页</a></li>
-	<%end%>
-	<%if !right_page.nil?%>
-		<li><a href="/affair/page/<%=right_page%>">后一页</a></li>
-	<%end%>
-</ul>
-<%end%>
+<div class="container-fluid smallheadername">
+  <div class="row-fluid">
+    <div class="span6 offset3">
+      <div class="smallname"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="activity_name">
+    <div class="big">● 事务公告 ●</div>
+  </div>
+  <div class="row-fluid activity_contain">
+    <div class="span8 offset2  activity_border">
+      <%if !content.nil? and !content.empty?%>
+        <%content.map do |list|%>
+          <%if list.nil?%><%next%><%end%>
+          <div class="row-fluid activity_total">
+            <div class="span5 activity_title">
+              <%=list.title%>
+            </div>
+            <div class="span7 activity_text">
+              <div class="activity_date"><%=list.time%></div>
+              <div class="activity_t"><%=list.content%></div>
+              <div class="activity_more row-fluid">
+                <div class="span3">阅读(<%=list.hits%>)</div>
+                <div class="span3 offset3 activity_check" style="float: right;"><a href="/affair/list/<%=list.nid%>">查看全文</a></div>
+
+              </div>
+            </div>
+          </div>
+        <%end%>
+      <%else%>
+        <div class="row-fluid activity_total">
+          <div class="span5 activity_title">
+            没有事务公告
+          </div>
+        </div>
+      <%end%>
+
+      <%if !left_page.nil? or !right_page.nil?%>
+        <div class="row-fluid">
+          <div class="span8 offset2">
+            <div class="page">
+              <ul>
+                <%if !left_page.nil?%>
+                  <li><a href="/affair/page/<%=left_page%>" title="上一页">&lt;</a></li>
+                <%end%>
+                <%if !right_page.nil?%>
+                  <li><a href="/affair/page/<%=right_page%>" title="下一页">&gt;</a></li>
+                <%end%>
+              </ul>
+            </div>
+          </div>
+        </div>
+      <%end%>
+    </div>
+  </div>
+</div>
+<div class="container-fluid footer">
+  <div class="row-fluid">
+    <div class="span8 offset2">
+      <p>©Copyright 2013 Wuhan Linux User Group All Rights Reserved.</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

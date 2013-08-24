@@ -30,7 +30,7 @@ module Ash
 				l_page, r_page = page - 1, page + 1
 				l_page = nil if l_page == 0
 				r_page = nil if r_page > sp_len
-				SummaryListPages.new(et.find_briefs_by_page(page), page, l_page, r_page)
+				SummaryListPages.new(et.find_det_briefs_by_page(page), page, l_page, r_page)
 			end
 
 			def ct_list_details(num = 1)
