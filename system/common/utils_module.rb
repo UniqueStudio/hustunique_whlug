@@ -27,9 +27,9 @@ module Ash
       end
       raise "#{@module_path} modules do not exist" unless Dir.exists? @module_path
       raise "#{@module_view_file} file do not exist" unless File.exist? @module_view_file
-      raise "#{@module_control_file} file do not exist" unless File.exist? @module_control_file
+      #raise "#{@module_control_file} file do not exist" unless File.exist? @module_control_file
       require @module_view_file
-      require @module_control_file
+      #require @module_control_file
     end
 
     def self.module_name
