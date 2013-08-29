@@ -7,7 +7,8 @@ body{
 .headerlist{
   width: 100%;
   background: url(/image/nar2.png) repeat-x;
-  height:82px;
+  height:80px;
+  margin-top: -17px;
 }
 
 #titlelist{
@@ -28,6 +29,7 @@ li{
 
 #titlelist li.n1{
   width:14%;
+  margin-top: 11px;
   /*padding:10px 15px 10px 15px;*/
 
 }
@@ -39,16 +41,17 @@ li{
   cursor: pointer;
   color:#d4d7d8;
   text-decoration: none;
+  height: 40px;
 }
 
 #titlelist li a:hover{
   color:#8063f3;
-  border: 4px #8063f3;
-  border-bottom-style: solid;
+  /*border: 3px #8063f3;*/
+  /*border-bottom-style: solid;*/
 }
 .titlelist_a_hover{
   color:#8063f3;
-  border: 4px #8063f3;
+  border: 3px #8063f3;
   border-bottom-style: solid;
 }
 
@@ -58,7 +61,7 @@ a .n2{
 
 #titlelist li.n3{
   /*height:20px;*/
-  margin-top: 16px;
+  margin-top: 28px;
   border-right: 1px solid #000000;
   border-left: 1px solid #333333;
 }
@@ -217,6 +220,7 @@ text-align: center;
     -moz-border-radius: 6px; 
     padding: 40px 30px 40px 24px;
     background: #f7f6f7;
+    box-shadow: 1px 1px;
   }
 
   .activity_total{
@@ -226,7 +230,6 @@ text-align: center;
 
   .activity_title{
     font-size: 24px;
-    font-weight: bold;
     color:#3c3c3d;
     line-height: 28px;
   }
@@ -241,7 +244,6 @@ text-align: center;
   .activity_date{
     text-align: right;
     padding-bottom: 6px;
-    font-weight: bold;
   }
 
   .activity_t{
@@ -254,7 +256,6 @@ text-align: center;
 
   .activity_more{
     padding-top: 8px;
-    font-weight: bold;
   }
 
   .activity_check{
