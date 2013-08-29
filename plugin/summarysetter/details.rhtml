@@ -1,0 +1,20 @@
+<div style="margin-bottom: 10px;">
+	<a href="/wlg/setting/summary/add" class="btn btn-success"><i class="icon-plus-sign"></i>添加</a>
+	<a href="/wlg/setting/summary/edit/<%=nid%>" class="btn btn-success"><i class="icon-edit"></i>修改</a>
+</div>
+<ol class="breadcrumb">
+	<li>
+	<a href="/wlg/setting/summary">活动回顾</a> <span class="divider">/</span>
+	</li>
+	<li><a href="/wlg/setting/summary/page">列表</a> <span class="divider">/</span></li>
+	<li class="active">
+	详细信息
+	</li>
+</ol>
+<div class="container span10 offset1">
+		<h3 class="text-center">
+			<%=title%>
+		</h3>
+		<p class="text-center pinfo"><span>点击次数：<%=hits%></span> <span>发布时间：<%=fmt_time%></span> <span>编辑：<%=writer%></span></p>
+		<%=content%>
+</div>

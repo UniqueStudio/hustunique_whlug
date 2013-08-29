@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Wuhan Linux user group 首页</title>
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<div class="container-fluid headerlist">
+  <div class="navbar navbar-static-top">
+    <ul  id="titlelist">
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a class="titlelist_a_hover" style="color: #8063f3;" href="javascript:none;">
+        首页
+        <p class="n2">Home</p>
+      </a>
+      </li>
+
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a href="/affair">
+        事务
+        <p class="n2">Affairs</p>
+      </a>
+      </li>
+
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a href="/activity">
+        活动
+        <p class="n2">Activities</p>
+      </a>
+      </li>
+
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a href="/review">
+        回顾
+        <p class="n2">Review</p>
+      </a>
+      </li>
+
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a href="/introduction">
+        WhLug介绍
+        <p class="n2">About  WhLug</p>
+      </a>
+      </li>
+
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a href="/contact">
+        联系我们
+        <p class="n2">Contact  us</p>
+      </a>
+      </li>
+      <li class="divider-vertical n3"></li>
+    </ul>
+  </div>
+</div>
+<div class="container-fluid headername">
+  <div class="row-fluid">
+    <div class="span10 offset1">
+      <div class="name"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid Lcontain">
+  <div class="row-fluid">
+    <div class="span10 offset1">
+      <div class="row-fluid">
+        <div class="span4">
+          <div class="row-fluid title">
+            <div class="span8 offset1 titlename">事务公告</div>
+            <div class="span2 offset1 titlemore"><a href="/affair">more</a></div>
+          </div>
+          <div class="table_border">
+            <table class="table">
+              <%if !affair.nil?%>
+                <%affair.map do |list|%>
+                <tr class="note note1">
+                  <td><div><a href="/affair/list/<%=list.nid%>" title="" alt=""><%=list.title%></a></div></td>
+                  <td class="date"><%=list.time%></td>
+                </tr>
+              <%end%>
+              <%else%>
+                <tr class="note note1">
+                  <td><div><a href="javascript: none;" title="" alt="">没有事务公告</a></div></td>
+                  <td class="date"></td>
+                </tr>
+              <%end%>
+            </table>
+          </div>
+        </div>
+        <div class="span4">
+          <div class="row-fluid title">
+            <div class="span8 offset1 titlename">活动公告</div>
+            <div class="span2 offset1 titlemore"><a href="/activity">more</a></div>
+          </div>
+          <div class="table_border">
+            <table class="table">
+              <%if !event.nil?%>
+                <%event.map do |list|%>
+                <tr class="note note1">
+                  <td><div><a href="/activity/list/<%=list.nid%>" title="" alt=""><%=list.title%></a></div></td>
+                  <td class="date"><%=list.time%></td>
+                </tr>
+              <%end%>
+              <%else%>
+                <tr class="note note1">
+                  <td><div><a href="javascript: none;" title="" alt="">没有活动公告</a></div></td>
+                  <td class="date"></td>
+                </tr>
+              <%end%>
+            </table>
+          </div>
+        </div>
+        <div class="span4">
+          <div class="row-fluid title">
+            <div class="span8 offset1 titlename">回顾</div>
+            <div class="span2 offset1 titlemore"><a href="/review">more</a></div>
+          </div>
+          <div class="table_border">
+            <table class="table">
+              <%if !summary.nil?%>
+                <%summary.map do |list|%>
+                <tr class="note note1">
+                  <td><div><a href="/review/list/<%=list.nid%>" title="" alt=""><%=list.title%></a></div></td>
+                  <td class="date"><%=list.time%></td>
+                </tr>
+              <%end%>
+              <%else%>
+                <tr class="note note1">
+                  <td><div><a href="javascript: none;" title="" alt="">没有回顾信息</a></div></td>
+                  <td class="date"></td>
+                </tr>
+              <%end%>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid footer">
+  <div class="row-fluid">
+    <div class="span8 offset2">
+      <p>©Copyright 2013 Wuhan Linux User Group All Rights Reserved.</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

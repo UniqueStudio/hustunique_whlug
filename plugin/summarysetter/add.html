@@ -1,0 +1,49 @@
+<script language="Javascript" type="text/javascript" src="/bootstrap/js/wysihtml5-0.3.0.min.js"></script>
+<script language="Javascript" type="text/javascript" src="/bootstrap/js/bootstrap-wysihtml5.js"></script>
+<ol class="breadcrumb">
+	<li>
+	<a href="/wlg/setting/summary">活动回顾</a> <span class="divider">/</span>
+	</li>
+	<li class="active">
+	添加
+	</li>
+</ol>
+<div class="container" style="width: 720px;">
+	<fieldset>
+		<div style="margin-left: -48px; magin-top: 20px;">
+			<div class="form-horizontal">
+				<div class="control-group">
+					<label class="control-label" for="e_s_title">Title</label>
+					<div class="controls">
+						<input type="text" id="e_s_title" placeholder="Summary Title" />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="e_s_writer">Writer</label>
+					<div class="controls">
+						<input type="text" id="e_s_writer" placeholder="Summary Edit Writer" />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="e_s_content">Content</label>
+					<div class="controls">
+						<textarea id="e_s_content" placeholder="Content" style="width: 500px; height: 400px;"></textarea>
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<button class="btn btn-success a_e_save">Save</button>
+						<a href="/wlg/setting/summary/page" class="btn btn-link">Cancel</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</fieldset>
+	<div class="alert" id="l_alert" style="display: none;margin-top: 4px;margin-left: 18px; box-shadow: 0 1px 1px;">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<p id="l_err">error</p>
+	</div>
+</div>
+<script language="Javascript" type="text/javascript" src="/js/base_setter.js"></script>
+<script language="Javascript" type="text/javascript" src="/js/summary_setter.js"></script>

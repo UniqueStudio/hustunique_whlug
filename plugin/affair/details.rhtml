@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Wuhan Linux user group 活动正文</title>
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<div class="container-fluid headerlist">
+  <div class="navbar navbar-static-top">
+    <ul  id="titlelist">
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a href="/">
+        首页
+        <p class="n2">Home</p>
+      </a>
+      </li>
+
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a class="titlelist_a_hover" style="color: #8063f3;" href="javascript:none;">
+        事务
+        <p class="n2">Affairs</p>
+      </a>
+      </li>
+
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a href="/activity">
+        活动
+        <p class="n2">Activities</p>
+      </a>
+      </li>
+
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a href="/review">
+        回顾
+        <p class="n2">Review</p>
+      </a>
+      </li>
+
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a href="/introduction">
+        WhLug介绍
+        <p class="n2">About  WhLug</p>
+      </a>
+      </li>
+
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a href="#">
+        联系我们
+        <p class="n2">Contact  us</p>
+      </a>
+      </li>
+      <li class="divider-vertical n3"></li>
+    </ul>
+  </div>
+</div>
+<div class="container-fluid smallheadername">
+  <div class="row-fluid">
+    <div class="span6 offset3">
+      <div class="smallname"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="activity_name">
+    <div class="small"><a href="/affair/">● 事务公告 </a><span class="big">● 正文 ●</span></div>
+  </div>
+  <div class="row-fluid activity_contain">
+    <div class="span6 offset3  activity_border">
+      <div class="activity_2_total">
+        <div class="activity_2_title">
+          <div class="activity_2_titlename"><%=title%></div>
+          <div class="activity_2_time row-fluid">
+            <div class="span6 offset2">发布时间：<%=fmt_time%></div>
+            <div class="span4">编辑：<%=writer%></div>
+          </div>
+        </div>
+        <div class="activity_2_text">
+          <div><%=content%></div>
+        </div>
+        <div class="activity_2_more row-fluid" style="margin-top: 18px;">
+          <!--<div class="span3" style="float: right;">分享</div>-->
+          <div class="span3" style="float: right;">阅读次数(<%=hits%>)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid footer">
+  <div class="row-fluid">
+    <div class="span8 offset2">
+      <p>©Copyright 2013 Wuhan Linux User Group All Rights Reserved.</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>
