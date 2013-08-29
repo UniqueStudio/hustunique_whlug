@@ -7,7 +7,7 @@ require 'digest'
 
 set :public_folder, "#{MAIN_PATH}assets"
 
-set :session_secret, ENV["SESSION_KEY"] || Digest::MD5.hexdigest(ENV['ASH_MONGODB_PASSWORD'])
+set :session_secret, ENV["SESSION_KEY"] || Digest::MD5.hexdigest('wuhan_linux_user_group')
 enable :sessions
 
 before do
