@@ -12,7 +12,7 @@ body{
 }
 
 #titlelist{
-  width: 980px;
+  width: 950px;
   margin: 0 auto;
   display: block;
 }
@@ -28,7 +28,7 @@ li{
 }
 
 #titlelist li.n1{
-  width:14%;
+  width:13%;
   margin-top: 11px;
   /*padding:10px 15px 10px 15px;*/
 
@@ -60,8 +60,8 @@ a .n2{
 }
 
 #titlelist li.n3{
-  /*height:20px;*/
-  margin-top: 28px;
+  height:20px !important;
+  margin-top: 45px;
   border-right: 1px solid #000000;
   border-left: 1px solid #333333;
 }
