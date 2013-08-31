@@ -57,6 +57,13 @@ module Ash
 				@db_helper.update({nid: nid}, {"$set" => {title: title, writer: writer,content: content}})['updatedExisting']
 			end
 
+      def find_all_by_page(num)
+        result = @db_helper.find_by({isActive: Disposition::COMMON_EVENT_IS_ACTIVE.to_s})
+        return if result.nil?
+        res = result.sort({time: -1}).limit(Disposition::COMMON_EVENT_PAGE_MAX_NUM).skip(@event_helper.num_events(num)).to_a
+        return if res.empty?
+        ExtraDB::EventResult.new(res)
+      end
 			#def find_du_briefs(num)
 				#[self.find_simple_briefs(num - 1), self.find_simple_briefs(num + 1)]
 			#end

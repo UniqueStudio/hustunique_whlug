@@ -48,6 +48,14 @@ module Ash
         final
       end
 
+      def find_all_by_page(num)
+        result = @db_helper.find_by({isActive: Disposition::COMMON_SUMMARY_IS_ACTIVE.to_s})
+        return if result.nil?
+        res = result.sort({time: -1}).limit(Disposition::COMMON_SUMMARY_PAGE_MAX_NUM).skip(@summary_helper.num_summarys(num)).to_a
+        return if res.empty?
+        ExtraDB::SummaryResult.new(res)
+      end
+
 			def active?
 				result = @db_helper.find_one({isActive: Disposition::COMMON_SUMMARY_IS_ACTIVE.to_s, nid: @summary.nid})
 				!result.nil?

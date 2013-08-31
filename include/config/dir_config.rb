@@ -24,5 +24,7 @@ module Ash
 
 		MAIN_DIR_PLUGIN = "#{MAIN_PATH}plugin#{File::SEPARATOR}"
 
+		MAIN_DIR_EXTRA= "#{MAIN_PATH}extra#{File::SEPARATOR}"
+		MAIN_DIR_EXTRA_RSS= "#{MAIN_DIR_EXTRA}rss#{File::SEPARATOR}"
 	end
 end

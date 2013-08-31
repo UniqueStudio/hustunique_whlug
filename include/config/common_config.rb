@@ -52,5 +52,9 @@ module Ash
 		COMMON_PAGE_NOT_EXIST = '文章不存在'
 		COMMON_PAGE_DELETE_ERROR = '文章删除失败'
 		COMMON_PAGE_DELETE_SUCC = '文章删除成功'
+
+    # file
+		MAIN_FILE_RSS = "#{MAIN_DIR_EXTRA_RSS}rss_dev.xml"
+		MAIN_FILE_RSS_BAK = "#{MAIN_DIR_EXTRA_RSS}rss_dev.bak.xml"
 	end
 end
