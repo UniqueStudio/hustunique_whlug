@@ -1,0 +1,62 @@
+#!/usr/bin/env ruby
+#coding: UTF-8
+
+require 'optparse'
+require 'mongo'
+require 'pp'
+require 'digest'
+require 'securerandom'
+
+class InsertDbError < StandardError; end;
+
+options = {}
+optparse = OptionParser.new do |opts|
+  opts.banner = 'Insert Db User Introduction: '
+  #options[:switch] = false
+  opts.on('-n NAME', '--name NAME', 'Insert DB User Name') do |value|
+    value = value.strip
+    raise OptionParser::InvalidArgument.new("InvalidArgument") unless value
+    options[:name] = value
+  end
+  opts.on('-e EMAIL', '--email EMAIL', 'Insert DB User Email') do |value|
+    value = value.strip
+    flag = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/ =~ value ? true : false
+    raise OptionParser::InvalidArgument.new("InvalidArgument") unless flag
+    options[:email] = value
+  end
+  opts.on('-p md5_password', '--password md5_password', 'Insert DB User password and Md5 format password') do |value|
+    value = value.strip
+    flag = /^[0-9a-f]{32}$/ =~ value ? true : false
+    raise OptionParser::InvalidArgument.new("InvalidArgument") unless flag
+    options[:password] = value
+  end
+  opts.on('-h', '--help', 'Insert Db User Help') do
+    puts opts
+    exit
+  end
+end
+
+begin
+  optparse.parse!
+  raise OptionParser::MissingArgument.new("MissingArgument name") if options[:name].nil? or options[:name].nil?
+  raise OptionParser::MissingArgument.new("MissingArgument password") if options[:password].nil? or options[:password].nil?
+  raise OptionParser::MissingArgument.new("MissingArgument email") if options[:email].nil? or options[:email].nil?
+  insert_info = {name: options[:name], email: options[:email], password: options[:password]}
+  mongo_coll = Mongo::MongoClient.new('localhost', 27017).db('ash_ruby_project_wuhan_linux_group').collection('arpwlgDev1_AuthMembers')
+  raise InsertDbError.new("Insert DB Error: Email has Exists") unless mongo_coll.find_one({email: insert_info[:email]}).nil?
+  mongo_coll.insert({name: insert_info[:name], email: insert_info[:email], passwordMD5: Digest::MD5.hexdigest(insert_info[:password]), uuid: Digest::SHA1.hexdigest(SecureRandom.uuid), registeredTime: Time.now.to_i.to_s, isActive: '128'})
+
+rescue InsertDbError
+  puts $!.to_s
+  puts optparse
+  exit
+rescue OptionParser::InvalidOption, OptionParser::MissingArgument, OptionParser::InvalidArgument
+  puts $!.to_s
+  puts optparse
+  exit
+rescue
+  puts $!.to_s
+  exit
+end
+
+puts "Sucess"

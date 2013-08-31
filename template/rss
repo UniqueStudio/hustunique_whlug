@@ -1,0 +1,62 @@
+#!/usr/bin/env ruby
+#coding: UTF-8
+
+require 'rss/maker'
+require 'pp'
+require  'mongo'
+
+#MAIN_PATH = File.expand_path(File.dirname(File.dirname(__FILE__)))
+ACCESS_ERROR  = 1
+ASH_SEP = File::SEPARATOR
+MAIN_PATH = File.dirname(File.expand_path(File.dirname(__FILE__))) << ASH_SEP
+SYS_PATH = MAIN_PATH + 'system' + ASH_SEP
+
+require "#{MAIN_PATH}include/config/dir_config.rb"
+require "#{MAIN_PATH}include/config/common_config.rb"
+require "#{MAIN_PATH}include/config/db_config.rb"
+require "#{MAIN_PATH}include/affair/affair_tool.rb"
+require "#{MAIN_PATH}include/event/event_tool.rb"
+require "#{MAIN_PATH}include/summary/summary_tool.rb"
+
+WEB_URI = "http://www.whlug.org"
+
+affair_info, event_info, summary_info = [], [], []
+
+begin
+  Ash::ModuleTool::AffairTool.new.find_all_by_page(1).affair.map{ |l| next unless l.active; affair_info << l;}
+  Ash::ModuleTool::EventTool.new.find_all_by_page(1).event.map{ |l| next unless l.active; event_info << l;}
+  Ash::ModuleTool::SummaryTool.new.find_all_by_page(1).summary.map{ |l| next unless l.active; summary_info << l;}
+rescue
+end
+rss_content = RSS::Maker.make('2.0') do |m|
+  m.channel.title = "Wuhan Linux User Group"
+  m.channel.link = WEB_URI
+	m.channel.description = "这是一个Linux爱好者的社区平台"
+  m.items.do_sort = true
+
+  affair_info.map do |l|
+    i = m.items.new_item
+    i.title = l.title
+    i.link = "#{WEB_URI}/affair/list/#{l.nid}"
+    i.description = l.content
+    i.date = l.fmt_time
+    #i.editor = l.writer
+  end
+  event_info.map do |l|
+    i = m.items.new_item
+    i.title = l.title
+    i.link = "#{WEB_URI}/event/list/#{l.nid}"
+    i.description = l.content
+    i.date = l.fmt_time
+    #i.editor = l.writer
+  end
+  event_info.map do |l|
+    i = m.items.new_item
+    i.title = l.title
+    i.link = "#{WEB_URI}/summary/list/#{l.nid}"
+    i.description = l.content
+    i.date = l.fmt_time
+    #i.editor = l.writer
+  end
+end
+File.open("#{Ash::Disposition::MAIN_FILE_RSS}", 'w+'){|file| file.write(rss_content.to_s)}
