@@ -1,24 +1,22 @@
-<div style="margin-bottom: 10px;">
-	<a href="/wlg/setting/event/add" class="btn btn-success"><i class="icon-plus-sign"></i>添加</a>
+<div style="margin-bottom: 20px;">
+	<a href="/wlg/setting/event/add" class="btn btn-success">添加</a>
 </div>
-<ol class="breadcrumb">
-	<li>
-	<a href="/wlg/setting/event">活动公告</a> <span class="divider">/</span>
-	</li>
-	<li class="active">
-	列表
-	</li>
-</ol>
-<div class="container span11 list">
-	<%if !content.nil? and !content.empty?%>
-		<%content.map do |list|%>
-			<a href="/wlg/setting/event/list/<%=list.nid%>"><%if list.title.length > Disposition::COMMON_PAGE_LIST_MAX_LENGTH%><%=list.title[0, Disposition::COMMON_PAGE_LIST_MAX_LENGTH]%>...<%else%><%=list.title%><%end%>
-			<span><%=list.time%></span></a>
-			<hr />
-		<%end%>
-	<%else%>
-		<div>没有活动</div>
-	<%end%>
+<div class="list">
+  <table class="table">
+    <%if !content.nil? and !content.empty?%>
+      <%content.map do |list|%>
+      <tr class="note note1">
+        <td><div><a href="/wlg/setting/event/list/<%=list.nid%>" title="" alt=""><%=list.title%></a></div></td>
+        <td class="date"><%=list.time%></td>
+      </tr>
+    <%end%>
+    <%else%>
+      <tr class="note note1">
+        <td><div><a href="javascript: none;" title="" alt="">没有活动公告</a></div></td>
+        <td class="date"></td>
+      </tr>
+    <%end%>
+  </table>
 </div>
 <%if !left_page.nil? or !right_page.nil?%>
 <ul class="pager">

@@ -39,7 +39,7 @@ module Ash
 
 			def ct_verify_add(title = '', writer = '', cont = '')
 				begin
-					title, writer, cont = title.strip, writer.strip, cont.strip
+					title, writer, cont = UtilsBase.html_strip(title.strip), UtilsBase.html_strip(writer.strip), cont.strip
 
 					_verify = self._ct_verify(title, writer, cont)
 					return _verify unless _verify.nil?
@@ -53,7 +53,7 @@ module Ash
 
 			def ct_verify_edit(num = '', title = '', writer = '', cont = '')
 				begin
-					num, title, writer, cont = num.strip, title.strip, writer.strip, cont.strip
+					num, title, writer, cont = UtilsBase.html_strip(num.strip), UtilsBase.html_strip(title.strip), UtilsBase.html_strip(writer.strip), cont.strip
 
 					num = num.to_i
 					et = ModuleTool::EventTool.new.init_event(nid: num)

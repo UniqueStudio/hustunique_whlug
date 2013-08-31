@@ -20,7 +20,7 @@
 
       <li class="divider-vertical n3"></li>
       <li class="n1 text-center">
-      <a href=/affair">
+      <a href="/affair">
         事务
         <p class="n2">Affairs</p>
       </a>
@@ -28,7 +28,7 @@
 
       <li class="divider-vertical n3"></li>
       <li class="n1 text-center">
-      <a class="titlelist_a_hover" style="color: #8063f3;" href="javascript:none;">
+      <a class="titlelist_a_hover" style="color: #8063f3;border: 4px #8063f3;border-bottom-style: solid;padding-bottom: 6px;" href="javascript:none;">
         活动
         <p class="n2">Activities</p>
       </a>
@@ -62,33 +62,44 @@
   </div>
 </div>
 <div class="container-fluid smallheadername">
-  <div class="row-fluid">
-    <div class="span6 offset3">
-      <div class="smallname"></div>
-    </div>
+  <div class="realPlace-smallName">
+    <div class="smallname"></div>
   </div>
 </div>
 
 <div class="container-fluid">
   <div class="activity_name">
-    <div class="small"><a href="/affair/"><img src="/image/dot.png"> 活动公告 </a><span class="big"><img src="/image/dot.png"> 正文 <img src="/image/dot.png"></span></div>
+    <div class="title-small">
+      <div class="first-title">
+        <p class="title-doc"></p>
+        <a href="/activity/"><span>活动公告</span></a>
+        <p class="title-doc"></p>
+      </div>
+      <div class="second-title">
+        <span class="title-big">正文</span>
+        <p class="title-doc"></p>
+      </div>
+    </div>
   </div>
-  <div class="row-fluid activity_contain">
-    <div class="span6 offset3  activity_border">
+  <div class="realContent">
+    <div class="activity_border">
       <div class="activity_2_total">
         <div class="activity_2_title">
           <div class="activity_2_titlename"><%=title%></div>
-          <div class="activity_2_time row-fluid">
-            <div class="span6 offset2">发布时间：<%=fmt_time%></div>
-            <div class="span4">编辑：<%=writer%></div>
+          <div class="activity_2_time">
+            <div class="content-subTitle-left">发布时间：<%=fmt_time%></div>
+            <div class="content-subTitle-left">编辑：<%=writer%></div>
           </div>
         </div>
         <div class="activity_2_text">
-          <div><%=content%></div>
+          <div>
+            <%=content%>
+          </div>
         </div>
-        <div class="activity_2_more row-fluid" style="margin-top: 18px;">
-          <!--<div class="span3" style="float: right;">分享</div>-->
-          <div class="span3" style="float: right;">阅读次数(<%=hits%>)</div>
+        <div class="activity_2_more row-fluid">
+          <div>
+            <span class="readCount">阅读次数(<%=hits%>)</span>
+          </div>
         </div>
       </div>
     </div>

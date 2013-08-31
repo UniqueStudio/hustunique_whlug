@@ -1,20 +1,24 @@
-<div style="margin-bottom: 10px;">
-	<a href="/wlg/setting/event/add" class="btn btn-success"><i class="icon-plus-sign"></i>添加</a>
-	<a href="/wlg/setting/event/edit/<%=nid%>" class="btn btn-success"><i class="icon-edit"></i>修改</a>
+<div style="margin-bottom: 20px;">
+  <a href="/wlg/setting/event/add" class="btn btn-success">添加</a>
+  <a href="/wlg/setting/event/edit/<%=nid%>" class="btn btn-success">修改</a>
 </div>
-<ol class="breadcrumb">
-	<li>
-	<a href="/wlg/setting/event">活动公告</a> <span class="divider">/</span>
-	</li>
-	<li><a href="/wlg/setting/event/page">列表</a> <span class="divider">/</span></li>
-	<li class="active">
-	详细信息
-	</li>
-</ol>
-<div class="container span10 offset1">
-		<h3 class="text-center">
-			<%=title%>
-		</h3>
-		<p class="text-center pinfo"><span>点击次数：<%=hits%></span> <span>发布时间：<%=fmt_time%></span> <span>编辑：<%=writer%></span></p>
-		<%=content%>
+
+<div class="activity_2_total">
+  <div class="activity_2_title">
+    <div class="activity_2_titlename"><%=title%></div>
+    <div class="activity_2_time">
+      <div class="content-subTitle-left">发布时间：<%=fmt_time%></div>
+      <div class="content-subTitle-left">编辑：<%=writer%></div>
+    </div>
+  </div>
+  <div class="activity_2_text">
+    <div>
+      <%=content%>
+    </div>
+  </div>
+  <div class="activity_2_more row-fluid">
+    <div>
+      <span class="readCount">阅读次数(<%=hits%>)</span>
+    </div>
+  </div>
 </div>

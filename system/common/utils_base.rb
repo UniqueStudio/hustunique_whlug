@@ -6,6 +6,8 @@ require 'set'
 require 'json'
 require 'digest'
 require 'cgi'
+require 'mysql'
+require 'mime-types'
 
 module Ash
   module UtilsBase
@@ -98,6 +100,16 @@ module Ash
 
     def self.html_gsub(str)
       str.gsub(/(<[^>]*>)|\n|\t/){""}
+    end
+
+    def self.html_strip(str)
+      #str.gsub(/['"\\\x0]/,'\\\\\0')
+      #str.gsub(/\\(.)/,'\1')
+      Mysql.escape_string(str)
+    end
+
+    def self.real_file_type(file_path)
+      MIME::Types.type_for(file_path).first.content_type
     end
   end
 end

@@ -1,99 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="/css/general.css" rel="stylesheet" />
-		<link href="/bootstrap/css/bootstrap-wysihtml5.css" rel="stylesheet" />
-    <script type="text/javascript" src="/js/jquery.min.js"></script>
-    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/bootstrap/js/respond.min.js"></script>
-    <style type="text/css">
-      .container-narrow {
-        margin: 0 auto;
-        max-width: 908px;
-      }
-      #main-body {
-        min-height: 100%;
-        height: auto !important;
-        height: 100%;
-        margin: 0 auto -60px;
-      }
-      .list {
-        margin-bottom: 40px;
-      }
-      .list span {
-        float: right;
-        color: #999;
-      }
-      hr {
-        margin-top: 11px;
-        margin-bottom: 11px;
-      }
-    </style>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Wuhan Linux user group 编辑</title>
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+</head>
+<body>
+<div class="container-fluid headerlist">
+  <div class="navbar navbar-static-top">
+    <ul  id="titlelist">
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a <%if active == Ash::Disposition::COMMON_PAGE_EDIT_AFFAIR%>class="titlelist_a_hover" style="color: #8063f3;border: 4px #8063f3;border-bottom-style: solid;padding-bottom: 6px;"<%end%> href="/wlg/setting/affair">
+        事务
+        <p class="n2">Affairs</p>
+      </a>
+      </li>
 
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <![endif]-->
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a <%if active == Ash::Disposition::COMMON_PAGE_EDIT_EVENT%>class="titlelist_a_hover" style="color: #8063f3;border: 4px #8063f3;border-bottom-style: solid;padding-bottom: 6px;"<%end%> href="/wlg/setting/event">
+        活动
+        <p class="n2">Activities</p>
+      </a>
+      </li>
 
-  </head>
-  <body>
-    <div class="container" id="main-body">
-      <div class="span10 offset1">
-        <div class="navbar navbar-fixed-top navbar-inverse">
-          <div class="navbar-inner text-center">
-            <div class="container-narrow">
-              <a class="brand" href="/">Whlug</a>
-              <ul class="nav">
-                <li class="active"><a href="/">首页</a></li>
-                <!--<li><a href="/about">Whlug介绍</a></li>-->
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="row-fluid content">
-          <div class="span3">
-            <ul class="nav nav-list well sidebar">
-              <li class="nav-header">
-              Whlug
-              </li>
-              <li>
-              <a href="/wlg/setting/affair">事务公告</a>
-              </li>
-              <li>
-              <a href="/wlg/setting/event">活动公告</a>
-              </li>
-              <li>
-              <a href="/wlg/setting/summary">活动回顾</a>
-              </li>
-              <li class="divider">
-              </li>
-              <!--<li class="nav-header">-->
-              <!--Follow us!-->
-              <!--</li>-->
-              <!--<a href="#"><img src="/image/rss.jpg" alt="" /></a>-->
-              <!--<a href="#"><img src="/image/weibo.png" alt="" /></a>-->
-              <!--<a href="#"><img src="/image/twitter.png" alt="" /></a>-->
-              <!--<a href="#"><img src="/image/fb.png" alt="" /></a>-->
-              <!--<a href="#"><img src="/image/mail.png" alt="" /></a>-->
-            </ul>
-          </div>
-          <div class="span9">
-						<%=content%>
-          </div>
-        </div>
-        <div class="span10" id="footer">
-          <hr />
-          <p>&copy; Copyright 2013 Wuhan Linux User Group All Rights Reserved.</p>
-        </div>
+      <li class="divider-vertical n3"></li>
+      <li class="n1 text-center">
+      <a <%if active == Ash::Disposition::COMMON_PAGE_EDIT_SUMMARY%>class="titlelist_a_hover" style="color: #8063f3;border: 4px #8063f3;border-bottom-style: solid;padding-bottom: 6px;"<%end%> href="/wlg/setting/summary">
+        回顾
+        <p class="n2">Review</p>
+      </a>
+      </li>
+
+      <li class="divider-vertical n3"></li>
+    </ul>
+  </div>
+</div>
+<div class="container-fluid smallheadername">
+  <div class="realPlace-smallName">
+    <div class="smallname"></div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="activity_name">
+    <div class="title-small">
+      <div class="second-title">
+        <p class="title-doc"></p>
+        <span class="title-big">WhLUG</span>
+        <p class="title-doc"></p>
       </div>
     </div>
-  </body>
+  </div>
+  <div class="realContent-activity">
+    <div class="activity_border">
+      <%=content%>
+    </div>
+  </div>
+</div>
+<div class="container-fluid footer">
+  <div class="row-fluid">
+    <div class="span8 offset2">
+      <p>©Copyright 2013 Wuhan Linux User Group All Rights Reserved.</p>
+    </div>
+  </div>
+</div>
+</body>
 </html>
-

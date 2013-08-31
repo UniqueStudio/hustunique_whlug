@@ -1,53 +1,42 @@
-<script language="Javascript" type="text/javascript" src="/bootstrap/js/wysihtml5-0.3.0.min.js"></script>
-<script language="Javascript" type="text/javascript" src="/bootstrap/js/bootstrap-wysihtml5.js"></script>
-<ol class="breadcrumb">
-	<li>
-	<a href="/wlg/setting/affair">事务公告</a> <span class="divider">/</span>
-	</li>
-	<li class="active">
-	编辑
-	</li>
-</ol>
-<div style="margin-bottom: 10px;">
-	<a href="/wlg/setting/affair/delete/<%=nid%>" class="btn btn-danger">删除</a>
-</div>
 <div class="container" style="width: 720px;">
-	<fieldset>
-		<div style="margin-left: -48px; magin-top: 20px;">
-			<div class="form-horizontal">
-				<div class="control-group">
-					<label class="control-label" for="e_s_title">Title</label>
-					<div class="controls">
-						<input type="text" id="e_s_title" placeholder="Affair Title" value="<%=title%>"/>
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label" for="e_s_writer">Writer</label>
-					<div class="controls">
-						<input type="text" id="e_s_writer" placeholder="Affair Edit Writer" value="<%=writer%>"/>
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label" for="e_s_content">Content</label>
-					<div class="controls">
-						<textarea id="e_s_content" placeholder="Content" style="width: 500px; height: 400px;"><%=content%></textarea>
-					</div>
-				</div>
-				<div class="control-group">
-					<div class="controls">
-						<button class="btn btn-success a_e_update">Save</button>
-						<a href="/wlg/setting/affair/page" class="btn btn-link">Cancel</a>
-						<input type="hidden" id="hidden_nid" value="<%=nid%>">
-					</div>
-				</div>
+  <fieldset>
+    <div style="margin-left: -48px; magin-top: 20px;">
+      <div class="form-horizontal">
+        <div class="control-group">
+          <label class="control-label" for="e_s_title">Title</label>
+          <div class="controls">
+            <input type="text" class="span7" id="e_s_title" placeholder="Affair Title" value="<%=title%>"/>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="e_s_writer">Writer</label>
+          <div class="controls">
+            <input type="text" id="e_s_writer" placeholder="Affair Edit Writer" value="<%=writer%>"/>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="e_s_content">Content</label>
+          <div class="controls">
+            <textarea id="e_s_content" name="content" placeholder="Content"><%=content%></textarea>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <button class="btn btn-success a_e_update">Save</button>
+            <a href="/wlg/setting/affair/list/<%=nid%>" class="btn btn-link">Cancel</a>
+            <a href="/wlg/setting/affair/delete/<%=nid%>" class="btn btn-danger">删除</a>
+            <input type="hidden" id="hidden_nid" value="<%=nid%>">
+          </div>
+        </div>
 
-			</div>
-		</div>
-	</fieldset>
-	<div class="alert" id="l_alert" style="display: none;margin-top: 4px;margin-left: 18px; box-shadow: 0 1px 1px;">
-		<button type="button" class="close" data-dismiss="alert">&times;</button>
-		<p id="l_err">error</p>
-	</div>
+      </div>
+    </div>
+  </fieldset>
+  <div class="alert" id="l_alert" style="display: none;margin-top: 4px;margin-left: 18px; box-shadow: 0 1px 1px;">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <p id="l_err">error</p>
+  </div>
 </div>
 <script language="Javascript" type="text/javascript" src="/js/base_setter.js"></script>
 <script language="Javascript" type="text/javascript" src="/js/edit_affair.js"></script>
+<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>

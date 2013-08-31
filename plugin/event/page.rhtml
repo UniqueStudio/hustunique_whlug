@@ -28,7 +28,7 @@
 
       <li class="divider-vertical n3"></li>
       <li class="n1 text-center">
-      <a class="titlelist_a_hover" style="color: #8063f3;" href="javascript:none;">
+      <a class="titlelist_a_hover" style="color: #8063f3;border: 4px #8063f3;border-bottom-style: solid;padding-bottom: 6px;" href="javascript:none;">
         活动
         <p class="n2">Activities</p>
       </a>
@@ -61,21 +61,25 @@
     </ul>
   </div>
 </div>
+
 <div class="container-fluid smallheadername">
-  <div class="row-fluid">
-    <div class="span6 offset3">
-      <div class="smallname"></div>
-    </div>
+  <div class="realPlace-smallName">
+    <div class="smallname"></div>
   </div>
 </div>
 
 <div class="container-fluid">
   <div class="activity_name">
-    <!--<div class="big">● 活动公告 ●</div>-->
-    <div class="big"><img src="/image/dot.png"> 活动公告 <img src="/image/dot.png"></div>
+    <div class="title-small">
+      <div class="second-title">
+        <p class="title-doc"></p>
+        <span class="title-big">正文</span>
+        <p class="title-doc"></p>
+      </div>
+    </div>
   </div>
-  <div class="row-fluid activity_contain">
-    <div class="span8 offset2  activity_border">
+  <div class="realContent-activity">
+    <div class=" activity_border">
       <%if !content.nil? and !content.empty?%>
         <%content.map do |list|%>
           <%if list.nil?%><%next%><%end%>
@@ -86,9 +90,12 @@
             <div class="span7 activity_text">
               <div class="activity_date"><%=list.time%></div>
               <div class="activity_t"><%=list.content%></div>
+              <!--<span class="more-doc">-->
+              <!--......-->
+              <!--</span>-->
               <div class="activity_more row-fluid">
                 <div class="span3">阅读(<%=list.hits%>)</div>
-                <div class="span3 offset3 activity_check" style="float: right;"><a href="/activity/list/<%=list.nid%>">查看全文</a></div>
+                <a class="activity_check" href="/activity/list/<%=list.nid%>">查看全文</a>
 
               </div>
             </div>
@@ -101,23 +108,23 @@
           </div>
         </div>
       <%end%>
-
       <%if !left_page.nil? or !right_page.nil?%>
         <div class="row-fluid">
           <div class="span8 offset2">
             <div class="page">
               <ul>
                 <%if !left_page.nil?%>
-                  <li><a href="/event/page/<%=left_page%>" title="上一页">&lt;</a></li>
+                  <li><a href="/affair/page/<%=left_page%>" title="上一页">&lt;</a></li>
                 <%end%>
                 <%if !right_page.nil?%>
-                  <li><a href="/event/page/<%=right_page%>" title="下一页">&gt;</a></li>
+                  <li><a href="/affair/page/<%=right_page%>" title="下一页">&gt;</a></li>
                 <%end%>
               </ul>
             </div>
           </div>
         </div>
       <%end%>
+
     </div>
   </div>
 </div>
