@@ -1,7 +1,7 @@
 $(document).ready ->
   e_content_tag = CKEDITOR.replace("content",{
     height: 500,
-    #filebrowserBrowseUrl: '/image_browser'
+    filebrowserBrowseUrl: '/wlg/setting/image_browser'
     filebrowserUploadUrl: '/wlg/setting/image_uploader'
   })
   elm_alert = $("div#l_alert")
