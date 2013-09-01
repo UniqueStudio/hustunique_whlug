@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Wuhan Linux user group </title>
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+<style type="text/css">
+div.gallery{
+  height: 270px;
+}
+div.gallery-img{
+  width: 290px;
+  height: 230px;
+  overflow-y: hidden;
+}
+</style>
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="realContent-activity" style="width: 1000px;">
+    <div class=" activity_border">
+      <ul class="thumbnails">
+        <%if !file_arr.empty?%>
+          <%file_arr.map do |img|%>
+            <li class="span4">
+              <div class="thumbnail gallery">
+                <div class="gallery-img"><a href="/pictures/<%=img%>"><img src="/pictures/<%=img%>" title="view big pictures" style="width: 300px;"></a></div>
+                <span>URL: /pictures/<%=img%></span><br>
+                <span>Upload Time: <%=Time.at(img.to_i).utc.strftime("%F").to_s%></span>
+              </div>
+            </li>
+          <%end%>
+        <%end%>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid footer">
+  <div class="row-fluid">
+    <div class="span8 offset2">
+      <p>©Copyright 2013 Wuhan Linux User Group All Rights Reserved.</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

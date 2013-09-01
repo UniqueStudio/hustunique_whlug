@@ -16,11 +16,15 @@ end
 
 helpers do
 	def checked?
-		return false if !Ash::ExtraDB::MemberHelper.new.member?(session[:ash_uid])
-		return false if session[:ash_ustartt].nil?
-		_t = Time.now.to_i - session[:ash_ustartt].to_i
-		return false if _t < 0 or _t > Ash::Disposition::COMMON_ADMIN_MAX_TIME
-		true
+    begin
+      return false if !Ash::ExtraDB::MemberHelper.new.member?(session[:ash_uid])
+      return false if session[:ash_ustartt].nil?
+      _t = Time.now.to_i - session[:ash_ustartt].to_i
+      return false if _t < 0 or _t > Ash::Disposition::COMMON_ADMIN_MAX_TIME
+      true
+    rescue
+      false
+    end
 	end
 end
 

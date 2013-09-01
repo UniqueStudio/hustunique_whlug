@@ -13,8 +13,8 @@ module Ash
       def ct_image_uploader(args)
         begin
           upload = args['upload']
-          file_sim_type = upload[:filename].split('.').last
-          base_name = "/pictures/" + Time.now.to_i.to_s + '.' + file_sim_type
+          #file_sim_type = upload[:filename].split('.').last
+          base_name = "/pictures/" + Time.now.to_i.to_s
           FileUtils.move(upload[:tempfile].path.to_s, "#{Disposition::MAIN_DIR_ASSETS}#{base_name}" )
           base_name
         rescue
