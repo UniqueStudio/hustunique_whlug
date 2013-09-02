@@ -3,14 +3,21 @@ body{
 	background: url('/image/bg.jpg') repeat;
 	overflow-x:hidden;
 }
-
-a {
-  color: #595a5b;
+a{
+	color:#595a5b;
 }
-a:hover {
-  color: #08c;
+a:hover{
+	color:#08c;
 }
 
+.container-fluid{
+	padding: 0 !important;
+}
+.headerlist{
+	width: 100%;
+	background: url('/image/nav.png') repeat-x;
+	height:82px;
+}
 div.subscribe{
   margin-top: 56px;
   height: 70px;
@@ -34,11 +41,6 @@ div.subscribe .sub_email .sub_email_input{
 div.subscribe .sub_email .sub_email_input .sub_email_input_btn{
   margin-bottom: 6px;
 }
-.headerlist{
-	width: 100%;
-	background: url('/image/nav.png') repeat-x;
-	height:82px;
-}
 
 #titlelist{
 	width: 980px;
@@ -57,7 +59,7 @@ li{
 }
 
 #titlelist li.n1{
-	width:14%;
+	width:140px;
 	/*padding:10px 15px 10px 15px;*/
 
 }
@@ -102,7 +104,7 @@ a .n2{
 	margin-right: auto;
 }
 .realPlace-smallName{
-	width: 480px;
+	width: 717px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 40px;
@@ -149,12 +151,6 @@ a .n2{
 	color:#595a5b;
 	font-weight: bold;
 }
-/*.titlemore a{*/
-/*color: #595a5b;*/
-/*}*/
-/*.titlemore a:hover{*/
-/*color: #08c;*/
-/*}*/
 
 .table_border{
 	padding: 10px 10px 0px 10px;
@@ -227,7 +223,7 @@ tr:hover > td, .table-hover tbody tr:hover > th {
 
 .smallname{
 	background: url('/image/wlug_s.png') no-repeat;
-	width:711px;
+	width:717px;
 	height: 72px;
 }
 
@@ -394,7 +390,6 @@ tr:hover > td, .table-hover tbody tr:hover > th {
 	text-align: center;
 	font-size: 24px;
 	margin-bottom: 20px;
-  line-height: 24px;
 }
 
 .activity_2_time{
@@ -420,7 +415,6 @@ tr:hover > td, .table-hover tbody tr:hover > th {
 
 /*以下是关于我们 的样式*/
 .aboutus{
-	height:200px;
 }
 
 /*以下为联系我们 的样式*/

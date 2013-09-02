@@ -23,9 +23,12 @@ WEB_URI = "http://www.whlug.org"
 affair_info, event_info, summary_info = [], [], []
 
 begin
-  Ash::ModuleTool::AffairTool.new.find_all_by_page(1).affair.map{ |l| next unless l.active; affair_info << l;}
-  Ash::ModuleTool::EventTool.new.find_all_by_page(1).event.map{ |l| next unless l.active; event_info << l;}
-  Ash::ModuleTool::SummaryTool.new.find_all_by_page(1).summary.map{ |l| next unless l.active; summary_info << l;}
+  at = Ash::ModuleTool::AffairTool.new.find_all_by_page(1)
+  at.affair.map{ |l| next unless l.active; affair_info << l;} unless at.nil?
+  et = Ash::ModuleTool::EventTool.new.find_all_by_page(1)
+  et.event.map{ |l| next unless l.active; event_info << l;} unless et.nil?
+  st = Ash::ModuleTool::SummaryTool.new.find_all_by_page(1)
+  st.summary.map{ |l| next unless l.active; summary_info << l;} unless st.nil?
 rescue
 end
 rss_content = RSS::Maker.make('2.0') do |m|
@@ -50,7 +53,7 @@ rss_content = RSS::Maker.make('2.0') do |m|
     i.date = l.fmt_time
     #i.editor = l.writer
   end
-  event_info.map do |l|
+  summary_info.map do |l|
     i = m.items.new_item
     i.title = l.title
     i.link = "#{WEB_URI}/summary/list/#{l.nid}"
