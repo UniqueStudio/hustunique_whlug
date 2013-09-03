@@ -14,9 +14,11 @@ module Ash
         begin
           upload = args['upload']
           base_name = "pictures/" + Time.now.to_i.to_s
-          FileUtils.cp(upload[:tempfile].path.to_s, "#{Disposition::MAIN_DIR_ASSETS}#{base_name}")
+          File.open("#{Disposition::MAIN_DIR_ASSETS}#{base_name}", "wb"){|f| f.write(upload[:tempfile].read)}
+          #FileUtils.cp(upload[:tempfile].path.to_s, "#{Disposition::MAIN_DIR_ASSETS}#{base_name}")
           '/' + base_name
         rescue
+          raise
           UtilsBase.inte_err_info(4001, "file upload error")
         end
 
